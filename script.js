@@ -38,15 +38,30 @@ modalClose.addEventListener('click', function() {
     modalBg.classList.remove('bg-active');
 })
 
-getDictionary()
+let globalDictionary = []
+let winningWords = []
+
+test()
+
+async function test() {
+    await getDictionary()
+    console.log(globalDictionary)
+    console.log(winningWords)
+}
 
 async function getDictionary() {
     const response = await fetch('dictionary.txt');
     const data = await response.text();
     //I now have the array of words that I want to work with
-    const words = data.split('\n').filter(word => {
+    globalDictionary = data.split('\n').filter(word => {
         return word.length > 3 && word.length < 9
     })
-    console.log(words[0])
-    console.log(words)
+    winningWords = globalDictionary.filter(word => {
+        return word.length === 8
+    })
+}
+
+function generateWords(dictionary) {
+    //I need to randomly grab a word of length 7 first
+    //
 }
