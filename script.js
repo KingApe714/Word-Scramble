@@ -38,90 +38,15 @@ modalClose.addEventListener('click', function() {
     modalBg.classList.remove('bg-active');
 })
 
-// const fetchDictionary = fetch('dictionary.txt')
-//     .then(res => {
-//         // console.log(res)
-//         return res.text();
-//     })
-//     .then(data => {
-//         // console.log(data);
-//         return data;
-//     })
-const test = async () => {
-    const a = await fetchDictionary;
-    // const b = await a;
-    // console.log(a)
-    // console.log(a)
-    return a
+getDictionary()
+
+async function getDictionary() {
+    const response = await fetch('dictionary.txt');
+    const data = await response.text();
+    //I now have the array of words that I want to work with
+    const words = data.split('\n').filter(word => {
+        return word.length > 3 && word.length < 9
+    })
+    console.log(words[0])
+    console.log(words)
 }
-
-// const fetchWords = () => (
-//     fetch('dictionary.txt')
-// )
-
-// const receiveDictionary = (dictionary) => ({
-//     dictionary
-// })
-
-// const fetchDictionary = () => dispatch => {
-    
-//     return fetchWords()
-//         .then(words => dispatch(receiveDictionary(words)))
-// }
-
-// let test1 = fetchDictionary()
-
-let stuff, k;
-// console.log(test1())
-async function otherTest() {
-    const a = await fetch('dictionary.txt')
-    const data = await a.text();
-    // console.log(data)
-
-    stuff = data;
-
-    let event = new Event("test", { bubbles: true });
-    let k = document.dispatchEvent(event);
-    console.log(k)
-    return data
-}
-// console.log(otherTest())
-otherTest();
-
-let flag = false;
-let tester;
-
-addEventListener("test", function(){
-    flag = true;
-    // console.log(fetch('dictionary.txt'))
-    // alert("pishglang")
-    // return (fetch('dictionary.txt'))
-    // console.log(tester)
-})
-
-setTimeout( ()=> 
-{
-    if( flag ){
-        console.log(stuff); 
-    }
-},0);
-
-
-
-console.log(stuff)
-
-// let event = new Event("test", {bubbles: true})
-
-// let k = document.dispatchEvent(event)
-
-
-console.log(k)
-
-function one(){
-
-}
-function two(){
-
-
-}
-
