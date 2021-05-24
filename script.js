@@ -47,6 +47,9 @@ async function test() {
     await getDictionary()
     console.log(globalDictionary)
     console.log(winningWords)
+    const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
+    console.log(winningWord)
+    wordGenerator(winningWord, globalDictionary);
 }
 
 async function getDictionary() {
@@ -61,7 +64,6 @@ async function getDictionary() {
     })
 }
 
-function generateWords(dictionary) {
-    //I need to randomly grab a word of length 7 first
-    //
+function wordGenerator(winningWord, dictionary) {
+    
 }
