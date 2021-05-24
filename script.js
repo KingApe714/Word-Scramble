@@ -55,13 +55,17 @@ async function test() {
     const gameWords = [];
 
     for (let i = 0; i < winningWord.length; i++) {
-        
+        let chr = winningWord[i];
+        //I wanna check for the children of chr that are exactly the other chrs in winningWord
+        console.log(chr)
+        let t = root.map[chr]
+        console.log(t)
     }
 
-    console.log(globalDictionary)
-    console.log(winningWords)
-    console.log(root)
-    console.log(winningWord)
+    // console.log(globalDictionary)
+    // console.log(winningWords)
+    // console.log(root)
+    // console.log(winningWord)
 }
 
 async function getDictionary() {
