@@ -60,11 +60,11 @@ async function getDictionary() {
     const response = await fetch('dictionary.txt');
     const data = await response.text();
     //I now have the array of words that I want to work with
-    globalDictionary = data.split('\n').filter(word => {
-        return word.length > 3 && word.length < 9
+    globalDictionary = data.split(/\r?\n/).filter(word => {
+        return word.length > 2 && word.length < 8
     })
     winningWords = globalDictionary.filter(word => {
-        return word.length === 8
+        return word.length === 7
     })
 }
 
