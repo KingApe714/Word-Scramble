@@ -54,18 +54,9 @@ async function test() {
     //set up the game words using the characters of the winning word.
     const gameWords = [];
 
-    for (let i = 0; i < winningWord.length; i++) {
-        let chr = winningWord[i];
-        //I wanna check for the children of chr that are exactly the other chrs in winningWord
-        console.log(chr)
-        let t = root.map[chr]
-        console.log(t)
-    }
-
-    // console.log(globalDictionary)
-    // console.log(winningWords)
-    // console.log(root)
-    // console.log(winningWord)
+    //this function needs to be separate as there is likely a recursive call somewhere in here
+    
+    fetchGameWords(root, winningWord)
 }
 
 async function getDictionary() {
@@ -78,4 +69,16 @@ async function getDictionary() {
     winningWords = globalDictionary.filter(word => {
         return word.length === 7
     })
+}
+
+function fetchGameWords(root, winningWord) {
+    for (let i = 0; i < winningWord.length; i++) {
+        let chr = winningWord[i];
+        let otherLetters = winningWord.substring(0, i) + winningWord.substring(i + 1)
+        //I wanna check for the children of chr that are exactly the other chrs in winningWord
+        let t = root.map[chr]
+        console.log(chr)
+        console.log(otherLetters)
+        console.log(t)
+    }
 }
