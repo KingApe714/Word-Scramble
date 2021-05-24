@@ -47,6 +47,10 @@ async function test() {
     await getDictionary()
     console.log(globalDictionary)
     console.log(winningWords)
+    const root = new makeNode(null);
+    console.log(root)
+    for (const item of globalDictionary)
+        add(item, 0, root);
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     console.log(winningWord)
     wordGenerator(winningWord, globalDictionary);
