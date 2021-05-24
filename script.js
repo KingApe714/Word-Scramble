@@ -45,15 +45,23 @@ test()
 
 async function test() {
     await getDictionary()
-    console.log(globalDictionary)
-    console.log(winningWords)
     const root = new makeNode(null);
-    console.log(root)
     for (const item of globalDictionary)
         add(item, 0, root);
+        
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
+    
+    //set up the game words using the characters of the winning word.
+    const gameWords = [];
+
+    for (let i = 0; i < winningWord.length; i++) {
+        
+    }
+
+    console.log(globalDictionary)
+    console.log(winningWords)
+    console.log(root)
     console.log(winningWord)
-    wordGenerator(winningWord, globalDictionary);
 }
 
 async function getDictionary() {
@@ -66,8 +74,4 @@ async function getDictionary() {
     winningWords = globalDictionary.filter(word => {
         return word.length === 7
     })
-}
-
-function wordGenerator(winningWord, dictionary) {
-    
 }
