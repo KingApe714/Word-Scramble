@@ -12,7 +12,7 @@ function add(str, i, root) {
     }
 
     if (!root.map[str[i]])
-        root.map(str[i]) = new makeNode(str[i])
+        root.map[str[i]] = new makeNode(str[i])
 
     root.words.push(str);
     add(str, i + 1, root.map[str[i]]);
