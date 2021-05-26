@@ -41,6 +41,8 @@ modalClose.addEventListener('click', function() {
 let globalDictionary = []
 let winningWords = []
 
+let testDictionary = []
+
 test()
 
 async function test() {
@@ -71,14 +73,58 @@ async function getDictionary() {
     })
 }
 
-function fetchGameWords(root, winningWord) {
-    for (let i = 0; i < winningWord.length; i++) {
-        let chr = winningWord[i];
-        let otherLetters = winningWord.substring(0, i) + winningWord.substring(i + 1)
-        //I wanna check for the children of chr that are exactly the other chrs in winningWord
-        let t = root.map[chr]
-        console.log(chr)
-        console.log(otherLetters)
-        console.log(t)
+//this function should return the gameWords in an array
+function fetchGameWords(tree, string) {
+    //lets think of DFSing through the tree and searching for nodes that are .complete
+    //then lets focus on just returning the nodes that have exactly the letters in the string that we passed in.
+    console.log(tree.words)
+    let arr = [];
+    console.log(string)
+    for (let key in tree.map) {
+        console.log(tree.map[key].ch)
+        let check = fetchGameWords(tree.map[key], string)
     }
+
+    console.log('DONE')
+    return arr;
 }
+
+//If I break the word down into its fragments and only check the paths that actually have children then I will be building
+//a tree but strictly with the possibilities that I want to look for.
+//So the tree building is actually extremely useful
+
+//I need to do a DFS on each of the passing letters and once I reach a letter that has a .complete I return that word
+//into the array.
+
+
+
+
+
+// if (string.length === 0) {
+//     return
+// }
+
+// let gameWords = [];
+// // console.log(string)
+// for (let i in string) {
+//     let chr = string[i];
+//     let otherLetters = string.substring(0, i) + string.substring(i + 1)
+//     //I wanna check for the children of chr that are exactly the other chrs in winningWord
+//     let subTree = tree.map[chr]
+//     console.log(subTree)
+//     if (subTree.complete) {
+//         gameWords.concat(subTree.words)
+//         console.log('passed test')
+//         console.log(subTree.words)
+//     }
+//     console.log(gameWords)
+//     let test = fetchGameWords(subTree, otherLetters)
+//     console.log(test)
+//     // for (let i in otherLetters) {
+//     //     if (subTree.map[otherLetters[i]]) {
+//     //         console.log(subTree.map[otherLetters[i]])
+//     //     }
+//     // }
+//     console.log('___________________')
+// }
+// return gameWords;
