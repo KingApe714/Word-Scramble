@@ -2,6 +2,7 @@ function makeNode(ch) {
     this.ch = ch;
     this.complete = false;
     this.map = {};
+    this.parent = null;
     this.words = [];
 }
 
@@ -11,8 +12,10 @@ function add(str, i, root) {
         return
     }
 
-    if (!root.map[str[i]])
+    if (!root.map[str[i]]) {
         root.map[str[i]] = new makeNode(str[i])
+        root.map[str[i]].parent = root;
+    }
 
     root.words.push(str);
     add(str, i + 1, root.map[str[i]]);

@@ -58,6 +58,7 @@ async function test() {
 
     //this function needs to be separate as there is likely a recursive call somewhere in here
     
+    console.log(root)
     fetchGameWords(root, winningWord)
 }
 
@@ -77,16 +78,36 @@ async function getDictionary() {
 function fetchGameWords(tree, string) {
     //lets think of DFSing through the tree and searching for nodes that are .complete
     //then lets focus on just returning the nodes that have exactly the letters in the string that we passed in.
-    console.log(tree.words)
+    // console.log(tree.words)
+    // console.log(string)
     let arr = [];
-    console.log(string)
     for (let key in tree.map) {
-        console.log(tree.map[key].ch)
-        let check = fetchGameWords(tree.map[key], string)
+        arr.concat(fetchGameWords(tree.map[key], string))
+        // console.log(tree.map[key].ch)
+        if (tree.map[key].complete) {
+            let word = fetchWord(tree.map[key])
+            console.log(word)
+            arr.push(word)
+        }
+    }
+    console.log(arr)
+
+    // console.log('DONE')
+    return arr;
+}
+
+//this function accepts the tree and the currentNode
+//then travel up the parents to then return the currentWord
+function fetchWord(currentNode) {
+    let nodeCheck = currentNode;
+    let word = '';
+    // console.log(nodeCheck)
+    while(nodeCheck.parent !== null) {
+        word = nodeCheck.ch + word;
+        nodeCheck = nodeCheck.parent;
     }
 
-    console.log('DONE')
-    return arr;
+    return word;
 }
 
 //If I break the word down into its fragments and only check the paths that actually have children then I will be building
