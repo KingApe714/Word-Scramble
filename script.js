@@ -79,11 +79,24 @@ function fetchGameWords(tree, string) {
     //lets think of DFSing through the tree and searching for nodes that are .complete
     //then lets focus on just returning the nodes that have exactly the letters in the string that we passed in.
     // console.log(tree.words)
-    // console.log(string)
+    console.log(string)
     let arr = [];
+    
     for (let key in tree.map) {
-        arr.concat(fetchGameWords(tree.map[key], string))
+        // arr.concat(fetchGameWords(tree.map[key], string))
         // console.log(tree.map[key].ch)
+        //I need to be inside of this if statement to execute the rest of the code that 
+        //I am going to need
+        //Now lets focus on dfs down the tree from this point
+        if (string.includes(tree.map[key].ch)) {
+            console.log(tree.map[key].ch)
+            let i = string.indexOf(tree.map[key].ch)
+            let otherLetters = string.substring(0, i) + string.substring(i + 1)
+            console.log(otherLetters)
+            //Maybe I can have a function that returns the words that'll give me all of the 
+            //.completes
+
+        }
         if (tree.map[key].complete) {
             let word = fetchWord(tree.map[key])
             console.log(word)
