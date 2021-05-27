@@ -41,22 +41,21 @@ modalClose.addEventListener('click', function() {
 let globalDictionary = []
 let winningWords = []
 
-let testDictionary = []
+game()
 
-test()
-
-async function test() {
+async function game() {
     await getDictionary()
     const root = new makeNode(null);
     for (const item of globalDictionary)
         add(item, 0, root);
         
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
-    
     //set up the game words using the characters of the winning word.
     const gameWords = fetchGameWords(root, winningWord)
-    // console.log(winningWord)
     console.log(gameWords)
+    const text_box = document.getElementById('text-box');
+
+    text_box.addEventListener('keydown', handler)
 }
 
 async function getDictionary() {
@@ -71,43 +70,8 @@ async function getDictionary() {
     })
 }
 
-function fetchGameWords(tree, string) {
-    let gameWords = []
-    const queue = [[tree, string]];
-    while (queue.length) {
-        //lets grab the first element of the queue
-        let ele = queue.shift()
-        for (let i = 0; i < ele[1].length; i++) {
-            if (ele[0].complete) {
-                let currentWord = fetchWord(ele[0]);
-                if (!gameWords.includes(currentWord)) {
-                    gameWords.push(currentWord)
-                }
-            }
-            let char = ele[1][i]
-            let subTree = ele[0];
-            if (subTree.map[char]) {
-                subTree = subTree.map[char]
-                let idx = ele[1].indexOf(char);
-                let otherLetters = ele[1].substring(0, idx) + ele[1].substring(idx + 1);
-                //need to give otherLetters something to later iterate through
-                otherLetters = otherLetters ? otherLetters : " "
-                queue.push([subTree, otherLetters])
-            }
-        }
-    }
-    return gameWords
-}
+function handler(e) {
+    const str = e.target.value;
 
-//this function accepts the currentNode
-//then travel up the parents to then return the currentWord
-function fetchWord(currentNode) {
-    let nodeCheck = currentNode;
-    let word = '';
-    while(nodeCheck.parent !== null) {
-        word = nodeCheck.ch + word;
-        nodeCheck = nodeCheck.parent;
-    }
-    
-    return word;
+    console.log(str)
 }
