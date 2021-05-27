@@ -38,8 +38,9 @@ modalClose.addEventListener('click', function() {
     modalBg.classList.remove('bg-active');
 })
 
-let globalDictionary = []
-let winningWords = []
+let globalDictionary = [];
+let winningWords = [];
+let input = "";
 
 game()
 
@@ -50,11 +51,19 @@ async function game() {
         add(item, 0, root);
         
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
+    let shuffledLetters = shuffle(winningWord);
+    console.log(shuffledLetters)
+    console.log(winningWord)
     //set up the game words using the characters of the winning word.
     const gameWords = fetchGameWords(root, winningWord)
     console.log(gameWords)
-    const text_box = document.getElementById('text-box');
+    const displayLetters = document.createElement("DIV");
+    displayLetters.innerHTML = shuffledLetters;
+    document.body.appendChild(displayLetters)
 
+    const shuffleButton = document.createElement("BUTTON");
+    
+    const text_box = document.getElementById('text-box');
     text_box.addEventListener('keydown', handler)
 }
 
@@ -70,8 +79,24 @@ async function getDictionary() {
     })
 }
 
+function shuffle(s) {
+    const arr = s.split('');
+
+    for (let i = 0; i < arr.length; i++) {
+        let j = Math.floor(Math.random() * arr.length);
+        let temp = arr[i]
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    return arr.join('');
+}
+
 function handler(e) {
     const str = e.target.value;
-
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    if (alphabet.includes(str[str.length - 1]))
+    input = str.toUpperCase()
+    console.log(input)
     console.log(str)
 }
