@@ -74,40 +74,37 @@ async function getDictionary() {
     })
 }
 
-//this function should return the gameWords in an array
 function fetchGameWords(tree, string) {
-    //lets think of DFSing through the tree and searching for nodes that are .complete
-    //then lets focus on just returning the nodes that have exactly the letters in the string that we passed in.
-    // console.log(tree.words)
-    console.log(string)
-    let arr = [];
-    
-    for (let key in tree.map) {
-        // arr.concat(fetchGameWords(tree.map[key], string))
-        // console.log(tree.map[key].ch)
-        //I need to be inside of this if statement to execute the rest of the code that 
-        //I am going to need
-        //Now lets focus on dfs down the tree from this point
-        if (string.includes(tree.map[key].ch)) {
-            console.log(tree.map[key].ch)
-            let i = string.indexOf(tree.map[key].ch)
-            let otherLetters = string.substring(0, i) + string.substring(i + 1)
-            console.log(otherLetters)
-            //Maybe I can have a function that returns the words that'll give me all of the 
-            //.completes
-
-        }
-        if (tree.map[key].complete) {
-            let word = fetchWord(tree.map[key])
-            console.log(word)
-            arr.push(word)
+    //consider using a while loop
+    //use a fucking queue with a two dimensional array
+    //pos 0 will be the relevant node and position 1 will be otherLetters
+    let gameWords = []
+    const queue = [[tree, string]];
+    while (queue.length) {
+        //lets grab the first element of the queue
+        let ele = queue.shift()
+        for (let i = 0; i < ele[1].length; i++) {
+            if (ele[0].complete) {
+                let currentWord = fetchWord(ele[0]);
+                if (!gameWords.includes(currentWord)) {
+                    gameWords.push(currentWord)
+                }
+            }
+            let char = ele[1][i]
+            let subTree = ele[0];
+            if (subTree.map[char]) {
+                subTree = subTree.map[char]
+                let i = ele[1].indexOf(char);
+                let otherLetters = ele[1].substring(0, i) + ele[1].substring(i + 1);
+                queue.push([subTree, otherLetters])
+                console.log(otherLetters)
+            }
         }
     }
-    console.log(arr)
-
-    // console.log('DONE')
-    return arr;
+    console.log(gameWords)
 }
+
+//let otherLetters = string.substring(0, i) + string.substring(i + 1)
 
 //this function accepts the tree and the currentNode
 //then travel up the parents to then return the currentWord
@@ -119,7 +116,7 @@ function fetchWord(currentNode) {
         word = nodeCheck.ch + word;
         nodeCheck = nodeCheck.parent;
     }
-
+    
     return word;
 }
 
@@ -135,30 +132,72 @@ function fetchWord(currentNode) {
 
 
 // if (string.length === 0) {
-//     return
-// }
-
-// let gameWords = [];
-// // console.log(string)
-// for (let i in string) {
-//     let chr = string[i];
-//     let otherLetters = string.substring(0, i) + string.substring(i + 1)
-//     //I wanna check for the children of chr that are exactly the other chrs in winningWord
-//     let subTree = tree.map[chr]
-//     console.log(subTree)
+    //     return
+    // }
+    
+    // let gameWords = [];
+    // // console.log(string)
+    // for (let i in string) {
+        //     let chr = string[i];
+        //     let otherLetters = string.substring(0, i) + string.substring(i + 1)
+        //     //I wanna check for the children of chr that are exactly the other chrs in winningWord
+        //     let subTree = tree.map[chr]
+        //     console.log(subTree)
 //     if (subTree.complete) {
-//         gameWords.concat(subTree.words)
-//         console.log('passed test')
-//         console.log(subTree.words)
-//     }
-//     console.log(gameWords)
-//     let test = fetchGameWords(subTree, otherLetters)
-//     console.log(test)
-//     // for (let i in otherLetters) {
-//     //     if (subTree.map[otherLetters[i]]) {
-//     //         console.log(subTree.map[otherLetters[i]])
-//     //     }
-//     // }
-//     console.log('___________________')
-// }
-// return gameWords;
+    //         gameWords.concat(subTree.words)
+    //         console.log('passed test')
+    //         console.log(subTree.words)
+    //     }
+    //     console.log(gameWords)
+    //     let test = fetchGameWords(subTree, otherLetters)
+    //     console.log(test)
+    //     // for (let i in otherLetters) {
+        //     //     if (subTree.map[otherLetters[i]]) {
+            //     //         console.log(subTree.map[otherLetters[i]])
+            //     //     }
+            //     // }
+            //     console.log('___________________')
+            // }
+            // return gameWords;
+            // //this function should return the gameWords in an array
+            // function fetchGameWords(tree, string) {
+            //     //lets think of DFSing through the tree and searching for nodes that are .complete
+            //     //then lets focus on just returning the nodes that have exactly the letters in the string that we passed in.
+            //     // console.log(tree.words)
+            //     console.log(string)
+            //     let arr = [];
+                
+            //     for (let key in tree.map) {
+            //         // arr.concat(fetchGameWords(tree.map[key], string))
+            //         // console.log(tree.map[key].ch)
+            //         //I need to be inside of this if statement to execute the rest of the code that 
+            //         //I am going to need
+            //         //Now lets focus on dfs down the tree from this point
+            //         if (string.includes(tree.map[key].ch)) {
+            //             console.log(tree.map[key].ch)
+            //             let i = string.indexOf(tree.map[key].ch)
+            //             let otherLetters = string.substring(0, i) + string.substring(i + 1)
+            //             console.log(otherLetters)
+            //             gameWordfinder(otherLetters, tree.map[key])
+            //             //Maybe I can have a function that returns the words that'll give me all of the 
+            //             //.completes
+            
+            //         }
+            //         if (tree.map[key].complete) {
+            //             let word = fetchWord(tree.map[key])
+            //             console.log(word)
+            //             arr.push(word)
+            //         }
+            //     }
+            //     console.log(arr)
+            
+            //     // console.log('DONE')
+            //     return arr;
+            // }
+            
+            
+            // //with this function I want to be able to traverse the tree and return the words using the remainder of the letters
+            
+            // function gameWordfinder(otherLetters, subTree) {
+            
+            // }
