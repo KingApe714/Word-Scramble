@@ -52,23 +52,23 @@ async function game() {
         add(item, 0, root);
         
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
-    letters = winningWord
-    let shuffledLetters = shuffle(winningWord);
+    letters = shuffle(winningWord)
+    // let letters = shuffle(winningWord);
     //set up the game words using the characters of the winning word.
     const gameWords = fetchGameWords(root, winningWord)
     const displayLetters = document.querySelector('.shuffled-letters');
-    displayLetters.innerHTML = shuffledLetters;
+    displayLetters.innerHTML = letters;
     
     const shuffleButton = document.querySelector('.shuffle-button')
     shuffleButton.addEventListener('click', function() {
-        shuffledLetters = shuffle(winningWord)
-        displayLetters.innerHTML = shuffledLetters;
+        letters = shuffle(winningWord)
+        displayLetters.innerHTML = letters;
     })
 
     const body = document.querySelector('.body')
     body.addEventListener('keydown', handler)
 
-    console.log(shuffledLetters)
+    console.log(letters)
     console.log(winningWord)
     console.log(gameWords)
 }
@@ -112,9 +112,8 @@ function handler(e) {
     if (str === "BACKSPACE") {
         let char = guess[guess.length - 1]
         guess = guess.slice(0, guess.length - 1)
-        let idx = letters.indexOf(char)
-        letters = letters.slice(0, idx) + letters.slice(idx + 1)
+        if (char) letters += char;
     }
-    console.log(guess)
-    console.log(letters)
+    console.log(`guess = ${guess}`)
+    console.log(`letters = ${letters}`)
 }
