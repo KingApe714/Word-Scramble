@@ -39,8 +39,9 @@ modalClose.addEventListener('click', function() {
 })
 
 let globalDictionary = [];
+let letters = '';
 let winningWords = [];
-let input = "";
+let guess = "";
 
 game()
 
@@ -51,6 +52,7 @@ async function game() {
         add(item, 0, root);
         
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
+    letters = winningWord
     let shuffledLetters = shuffle(winningWord);
     //set up the game words using the characters of the winning word.
     const gameWords = fetchGameWords(root, winningWord)
@@ -62,8 +64,9 @@ async function game() {
         shuffledLetters = shuffle(winningWord)
         displayLetters.innerHTML = shuffledLetters;
     })
-    const text_box = document.getElementById('text-box');
-    text_box.addEventListener('keydown', handler)
+
+    const body = document.querySelector('.body')
+    body.addEventListener('keydown', handler)
 
     console.log(shuffledLetters)
     console.log(winningWord)
@@ -95,11 +98,23 @@ function shuffle(s) {
     return arr.join('');
 }
 
+//this function should honor what the user types if it includes one of the letters of 'letters
+//it should also honor when the user deletes
+//maybe use a global varialbe that is the users current guess and display it on the screen
+//I should probably have a clear button as well
 function handler(e) {
-    const str = e.target.value;
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    if (alphabet.includes(str[str.length - 1]))
-    input = str.toUpperCase()
-    console.log(input)
-    console.log(str)
+    const str = e.key.toUpperCase();
+    if (letters.includes(str)) {
+        let idx = letters.indexOf(str)
+        letters = letters.slice(0, idx) + letters.slice(idx + 1);
+        guess += str;
+    }
+    if (str === "BACKSPACE") {
+        let char = guess[guess.length - 1]
+        guess = guess.slice(0, guess.length - 1)
+        let idx = letters.indexOf(char)
+        letters = letters.slice(0, idx) + letters.slice(idx + 1)
+    }
+    console.log(guess)
+    console.log(letters)
 }
