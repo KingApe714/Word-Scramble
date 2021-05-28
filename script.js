@@ -52,19 +52,22 @@ async function game() {
         
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     let shuffledLetters = shuffle(winningWord);
-    console.log(shuffledLetters)
-    console.log(winningWord)
     //set up the game words using the characters of the winning word.
     const gameWords = fetchGameWords(root, winningWord)
-    console.log(gameWords)
-    const displayLetters = document.createElement("DIV");
+    const displayLetters = document.querySelector('.shuffled-letters');
     displayLetters.innerHTML = shuffledLetters;
-    document.body.appendChild(displayLetters)
-
-    const shuffleButton = document.createElement("BUTTON");
     
+    const shuffleButton = document.querySelector('.shuffle-button')
+    shuffleButton.addEventListener('click', function() {
+        shuffledLetters = shuffle(winningWord)
+        displayLetters.innerHTML = shuffledLetters;
+    })
     const text_box = document.getElementById('text-box');
     text_box.addEventListener('keydown', handler)
+
+    console.log(shuffledLetters)
+    console.log(winningWord)
+    console.log(gameWords)
 }
 
 async function getDictionary() {
