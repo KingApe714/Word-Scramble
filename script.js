@@ -7,11 +7,13 @@ const shuffleButton = document.querySelector('.shuffle-button');
 const clearButton = document.querySelector('.clear-button');
 
 let gameWords;
+let passWords;
 let globalDictionary = [];
 let winningWords = [];
 let correctGuesses = [];
 let letters = '';
 let guess = '';
+let passStage = false;
 
 game()
 
@@ -25,6 +27,8 @@ async function game() {
     letters = shuffle(winningWord)
     displayLetters.innerHTML = letters;
     gameWords = fetchGameWords(root, winningWord)
+    passWords = gameWords.filter(word => word.length === 7)
+
     body.addEventListener('keydown', handler)
 
     shuffleButton.addEventListener('click', function() {
@@ -50,6 +54,7 @@ async function game() {
     console.log(letters)
     console.log(winningWord)
     console.log(gameWords)
+    console.log(passWords)
 }
 
 async function getDictionary() {
@@ -64,10 +69,6 @@ async function getDictionary() {
     })
 }
 
-//this function should honor what the user types if it includes one of the letters of 'letters
-//it should also honor when the user deletes
-//maybe use a global varialbe that is the users current guess and display it on the screen
-//I should probably have a clear button as well
 function handler(e) {
     const str = e.key.toUpperCase();
 
