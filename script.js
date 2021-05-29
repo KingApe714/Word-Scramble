@@ -1,10 +1,17 @@
+const body = document.querySelector('.body')
 const displayLetters = document.querySelector('.shuffled-letters');
-const shuffleButton = document.querySelector('.shuffle-button')
+const guessLetters = document.querySelector('.guessed-letters');
+const correctEntries = document.querySelector('.correct-entries');
+const enterButton = document.querySelector('.enter-button');
+const shuffleButton = document.querySelector('.shuffle-button');
+const clearButton = document.querySelector('.clear-button');
 
+let gameWords;
 let globalDictionary = [];
-let letters = '';
 let winningWords = [];
-let guess = "";
+let correctGuesses = [];
+let letters = '';
+let guess = '';
 
 game()
 
@@ -12,18 +19,32 @@ async function game() {
     await getDictionary()
     const root = new makeNode(null);
     for (const item of globalDictionary)
-    add(item, 0, root);
+        add(item, 0, root);
     
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     letters = shuffle(winningWord)
     displayLetters.innerHTML = letters;
-    const gameWords = fetchGameWords(root, winningWord)
-    const body = document.querySelector('.body')
+    gameWords = fetchGameWords(root, winningWord)
     body.addEventListener('keydown', handler)
 
     shuffleButton.addEventListener('click', function() {
         letters = shuffle(letters)
         displayLetters.innerHTML = letters;
+    })
+
+    clearButton.addEventListener('click', function() {
+        guess = "";
+        letters = shuffle(winningWord)
+
+        displayLetters.innerHTML = letters;
+        guessLetters.innerHTML = guess;
+    })
+
+    enterButton.addEventListener('click', function() {
+        if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
+            correctGuesses.push(guess);
+            correctEntries.innerHTML += "<div>" + guess + "</div>";
+        }
     })
 
     console.log(letters)
@@ -59,10 +80,15 @@ function handler(e) {
         let char = guess[guess.length - 1]
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
+    } else if (str === "ENTER") {
+        if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
+            correctGuesses.push(guess);
+            correctEntries.innerHTML += "<div>" + guess + "</div>";
+        }
     }
 
     displayLetters.innerHTML = letters;
-    
+    guessLetters.innerHTML = guess;
     
     console.log(`guess = ${guess}`)
     console.log(`letters = ${letters}`)
