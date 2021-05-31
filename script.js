@@ -44,7 +44,7 @@ async function game() {
 
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
-
+    placeHolders()
     body.addEventListener('keydown', handler)
 
     shuffleButton.addEventListener('click', function() {

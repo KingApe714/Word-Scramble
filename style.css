@@ -69,3 +69,9 @@ body {
     opacity: 1;
     transform: translateY(0px)
 }
+
+.correct-entries {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
