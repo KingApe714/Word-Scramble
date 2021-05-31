@@ -1,15 +1,14 @@
 const modalBtn = document.querySelector('.modal-button');
 const modalBg = document.querySelector('.modal-bg');
 const modalClose = document.querySelector('.modal-close');
-const instructions = document.querySelector('.instructions')
-const text = document.querySelector('.instructions');
-const strText = text.textContent;
+const modalChild = document.querySelector('.modal-child');
+const strText = modalChild.textContent;
 const splitText = strText.split(' ');
-text.textContent = "";
+modalChild.textContent = "";
 
 for (let i = 0; i < splitText.length; i++) {
-    text.innerHTML += "<span class='letter'>" + splitText[i] + "</span>";
-    text.innerHTML += "&nbsp;"
+    modalChild.innerHTML += "<span class='letter'>" + splitText[i] + "</span>";
+    modalChild.innerHTML += "&nbsp;"
 }
 
 modalBtn.addEventListener('click', function() {
@@ -19,7 +18,7 @@ modalBtn.addEventListener('click', function() {
     let timer = setInterval(onTick, 50);
     
     function onTick() {
-        const span = text.querySelectorAll('.letter')[char];
+        const span = modalChild.querySelectorAll('.letter')[char];
         if (span) span.classList.add('fade');
         char++;
         if (char === splitText.length) {

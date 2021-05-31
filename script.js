@@ -17,6 +17,7 @@ let points = 0;
 let letters = '';
 let guess = '';
 let passStage = false;
+let time;
 
 game()
 
@@ -25,6 +26,9 @@ async function game() {
     const root = new makeNode(null);
     for (const item of globalDictionary)
         add(item, 0, root);
+
+    const startingMinutes = 1;
+    time = startingMinutes * 60;
     
     const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     letters = shuffle(winningWord)

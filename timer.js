@@ -1,7 +1,5 @@
-const startingMinutes = 3;
-let time = startingMinutes * 60;
-
 const countdownEl = document.querySelector('.countdown');
+
 
 setInterval(updateCountdown, 1000);
 
@@ -14,7 +12,11 @@ function updateCountdown() {
     countdownEl.innerHTML = `${minutes}:${seconds}`;
     time--;
 
-    if (time === 0) {
+    if (time === 0 && passStage) {
         console.log(passStage)
+        game()
+    } else if (time === 0 && !passStage) {
+        modalBg.classList.add('bg-active');
+        modalChild.innerHTML = `GAME OVER! your score = ${points}`
     }
 }
