@@ -23,6 +23,7 @@ function timer() {
                 game()
             })
         } else if (time === 0 && !passStage) {
+            time = null;
             const restartButtonn = document.createElement('button');
             restartButtonn.innerText = 'RESTART';
             modalBg.classList.add('bg-active');

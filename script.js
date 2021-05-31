@@ -32,13 +32,16 @@ async function game() {
     time = startingMinutes * 60;
     timer()
 
-    correctEntries.innerHTML = '';
     passStage = false;
     guess = ''
     letters = null;
     winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     shuffle()
     displayLetters.innerHTML = letters;
+    guessLetters.innerHTML = guess;
+    correctEntries.innerHTML = '';
+    pointsDiv.innerHTML = points;
+
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
 
@@ -56,10 +59,11 @@ async function game() {
         entries();
     })
 
-    console.log(letters)
-    console.log(winningWord)
-    console.log(gameWords)
-    console.log(passWords)
+    console.log(`letters = ${letters}`)
+    console.log(`guess = ${guess}`)
+    console.log(`winningWord = ${winningWord}`)
+    console.log(`gameWords = ${gameWords}`)
+    console.log(`passWords = ${passWords}`)
 }
 
 async function getDictionary() {
@@ -88,7 +92,7 @@ function handler(e) {
         if (char) letters += char;
     } else if (str === "ENTER") {
         entries()
-    } else if (str === "TAB") {
+    } else if (str === "/") {
         clear()
     } else if (str === "SHIFT") {
         shuffle()
@@ -126,6 +130,7 @@ function entries() {
 
 function clear() {
     guess = "";
+    letters = winningWord;
     shuffle();
 
     displayLetters.innerHTML = letters;
