@@ -5,12 +5,15 @@ const correctEntries = document.querySelector('.correct-entries');
 const enterButton = document.querySelector('.enter-button');
 const shuffleButton = document.querySelector('.shuffle-button');
 const clearButton = document.querySelector('.clear-button');
+const pointsDiv = document.querySelector('.points');
+const remainingWordsDiv = document.querySelector('.remaining-words')
 
 let gameWords;
 let passWords;
 let globalDictionary = [];
 let winningWords = [];
 let correctGuesses = [];
+let points = 0;
 let letters = '';
 let guess = '';
 let passStage = false;
@@ -45,10 +48,11 @@ async function game() {
     })
 
     enterButton.addEventListener('click', function() {
-        if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
-            correctGuesses.push(guess);
-            correctEntries.innerHTML += "<div>" + guess + "</div>";
-        }
+        // if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
+        //     correctGuesses.push(guess);
+        //     correctEntries.innerHTML += "<div>" + guess + "</div>";
+        // }
+        entries();
     })
 
     console.log(letters)
@@ -82,17 +86,37 @@ function handler(e) {
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
     } else if (str === "ENTER") {
-        if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
-            correctGuesses.push(guess);
-            correctEntries.innerHTML += "<div>" + guess + "</div>";
-        }
+        entries()
     }
 
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
     
-    console.log(`guess = ${guess}`)
-    console.log(`letters = ${letters}`)
+    // console.log(`guess = ${guess}`)
+    // console.log(`letters = ${letters}`)
+}
+
+function entries() {
+    if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
+        correctGuesses.push(guess);
+        correctEntries.innerHTML += "<div>" + guess + "</div>";
+        let remainingWords = gameWords.length - correctGuesses.length
+        remainingWordsDiv.innerHtml = remainingWords;
+
+        let multiplier = 0
+        if (guess.length === 3) multiplier = 3;
+        if (guess.length === 4) multiplier = 5;
+        if (guess.length === 5) multiplier = 10;
+        if (guess.length === 6) multiplier = 15;
+        if (guess.length === 7) {
+            multiplier = 20;
+            passStage = true;
+        }
+
+        time += multiplier;
+        points += multiplier * 100;
+        pointsDiv.innerHTML = points;
+    }
 }
 
 function shuffle(s) {
