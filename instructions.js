@@ -6,14 +6,14 @@ const strText = modalChild.textContent;
 const splitText = strText.split(' ');
 modalChild.textContent = "";
 
-for (let i = 0; i < splitText.length; i++) {
-    modalChild.innerHTML += "<span class='letter'>" + splitText[i] + "</span>";
-    modalChild.innerHTML += "&nbsp;"
-}
 
 modalBtn.addEventListener('click', function() {
     modalBg.classList.add('bg-active');
-    
+    modalChild.innerHTML = 'Make as many words as you can within the alotted time to get the highest score! Find the longest word to move onto the next stage!'
+    for (let i = 0; i < splitText.length; i++) {
+        modalChild.innerHTML += "<span class='letter'>" + splitText[i] + "</span>";
+        modalChild.innerHTML += "&nbsp;"
+    }
     let char = 0;
     let timer = setInterval(onTick, 50);
     

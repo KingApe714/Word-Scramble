@@ -1,22 +1,38 @@
 const countdownEl = document.querySelector('.countdown');
 
-
-setInterval(updateCountdown, 1000);
-
-function updateCountdown() {
-    const minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-    countdownEl.innerHTML = `${minutes}:${seconds}`;
-    time--;
-
-    if (time === 0 && passStage) {
-        console.log(passStage)
-        game()
-    } else if (time === 0 && !passStage) {
-        modalBg.classList.add('bg-active');
-        modalChild.innerHTML = `GAME OVER! your score = ${points}`
+function timer() {
+    setInterval(updateCountdown, 1000);
+    
+    function updateCountdown() {
+        const minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+    
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+    
+        countdownEl.innerHTML = `${minutes}:${seconds}`;
+        if (time > 0) time--;
+    
+        if (time === 0 && passStage) {
+            const nextButton = document.createElement('button');
+            nextButton.innerText = 'NEXT STAGE';
+            modalBg.classList.add('bg-active');
+            modalChild.innerHTML = `<div>Get ready for the next stage! total points =  ${points}</div>`
+            modalChild.appendChild(nextButton)
+            nextButton.addEventListener('click', function() {
+                modalBg.classList.remove('bg-active');
+                game()
+            })
+        } else if (time === 0 && !passStage) {
+            const restartButtonn = document.createElement('button');
+            restartButtonn.innerText = 'RESTART';
+            modalBg.classList.add('bg-active');
+            modalChild.innerHTML = `<div>GAME OVER! your score = ${points}</div>`
+            modalChild.appendChild(restartButtonn)
+            restartButtonn.addEventListener('click', function() {
+                points = 0;
+                modalBg.classList.remove('bg-active');
+                game()
+            })
+        }
     }
 }

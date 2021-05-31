@@ -14,7 +14,8 @@ let globalDictionary = [];
 let winningWords = [];
 let correctGuesses = [];
 let points = 0;
-let letters = '';
+let letters;
+let winningWord;
 let guess = '';
 let passStage = false;
 let time;
@@ -29,9 +30,14 @@ async function game() {
 
     const startingMinutes = 1;
     time = startingMinutes * 60;
-    
-    const winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
-    letters = shuffle(winningWord)
+    timer()
+
+    correctEntries.innerHTML = '';
+    passStage = false;
+    guess = ''
+    letters = null;
+    winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
+    shuffle()
     displayLetters.innerHTML = letters;
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
@@ -39,23 +45,14 @@ async function game() {
     body.addEventListener('keydown', handler)
 
     shuffleButton.addEventListener('click', function() {
-        letters = shuffle(letters)
-        displayLetters.innerHTML = letters;
+        shuffle()
     })
 
     clearButton.addEventListener('click', function() {
-        guess = "";
-        letters = shuffle(winningWord)
-
-        displayLetters.innerHTML = letters;
-        guessLetters.innerHTML = guess;
+        clear()
     })
 
     enterButton.addEventListener('click', function() {
-        // if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
-        //     correctGuesses.push(guess);
-        //     correctEntries.innerHTML += "<div>" + guess + "</div>";
-        // }
         entries();
     })
 
@@ -91,6 +88,10 @@ function handler(e) {
         if (char) letters += char;
     } else if (str === "ENTER") {
         entries()
+    } else if (str === "TAB") {
+        clear()
+    } else if (str === "SHIFT") {
+        shuffle()
     }
 
     displayLetters.innerHTML = letters;
@@ -123,8 +124,16 @@ function entries() {
     }
 }
 
-function shuffle(s) {
-    const arr = s.split('');
+function clear() {
+    guess = "";
+    shuffle();
+
+    displayLetters.innerHTML = letters;
+    guessLetters.innerHTML = guess;
+}
+
+function shuffle() {
+    const arr = letters ? letters.split('') : winningWord.split('');
 
     for (let i = 0; i < arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);
@@ -133,5 +142,6 @@ function shuffle(s) {
         arr[j] = temp;
     }
 
-    return arr.join('');
+    letters =  arr.join('');
+    displayLetters.innerHTML = letters;
 }
