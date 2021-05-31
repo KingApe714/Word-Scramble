@@ -28,23 +28,27 @@ async function game() {
     for (const item of globalDictionary)
         add(item, 0, root);
 
-    const startingMinutes = 1;
+    const startingMinutes = 2;
     time = startingMinutes * 60;
     timer()
 
+    correctGuesses = [];
     passStage = false;
     guess = ''
     letters = null;
     winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
-    shuffle()
-    displayLetters.innerHTML = letters;
-    guessLetters.innerHTML = guess;
-    correctEntries.innerHTML = '';
-    pointsDiv.innerHTML = points;
-
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
+    shuffle()
+    
+    displayLetters.innerHTML = letters;
+    guessLetters.innerHTML = guess;
+    remainingWordsDiv.innerHTML = gameWords.length;
+    pointsDiv.innerHTML = points;
+    correctEntries.innerHTML = '';
+
     placeHolders()
+    
     body.addEventListener('keydown', handler)
 
     shuffleButton.addEventListener('click', function() {
@@ -108,9 +112,9 @@ function handler(e) {
 function entries() {
     if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
         correctGuesses.push(guess);
+        //have placeHolders handle what happens with this
         correctEntries.innerHTML += "<div>" + guess + "</div>";
-        let remainingWords = gameWords.length - correctGuesses.length
-        remainingWordsDiv.innerHtml = remainingWords;
+        remainingWordsDiv.innerHTML = gameWords.length - correctGuesses.length;
 
         let multiplier = 0
         if (guess.length === 3) multiplier = 3;

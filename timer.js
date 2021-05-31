@@ -1,7 +1,8 @@
 const countdownEl = document.querySelector('.countdown');
 
 function timer() {
-    setInterval(updateCountdown, 1000);
+    console.log(time)
+    if (time) setInterval(updateCountdown, 1000);
     
     function updateCountdown() {
         const minutes = Math.floor(time / 60);
