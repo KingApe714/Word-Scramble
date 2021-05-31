@@ -112,8 +112,14 @@ function handler(e) {
 function entries() {
     if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
         correctGuesses.push(guess);
-        //have placeHolders handle what happens with this
-        correctEntries.innerHTML += "<div>" + guess + "</div>";
+        correctEntries.childNodes.forEach(node => {
+            node.childNodes.forEach(innerNode => {
+                if (innerNode.firstChild.innerHTML === guess) {
+                    innerNode.firstChild.classList.remove('hidden-text')
+                }
+            })
+        })
+        
         remainingWordsDiv.innerHTML = gameWords.length - correctGuesses.length;
 
         let multiplier = 0
