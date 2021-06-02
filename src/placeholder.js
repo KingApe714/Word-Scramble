@@ -1,6 +1,7 @@
 //loop through game words and set up the placeholders for them.
 
-function placeHolders() {
+export function placeHolders(gameWords) {
+    const correctEntries = document.querySelector('.correct-entries');
     // const threeLetter = gameWords.filter(word => word.length === 3);
     // const fourLetter = gameWords.filter(word => word.length === 4);
     // const fiveLetter = gameWords.filter(word => word.length === 5);

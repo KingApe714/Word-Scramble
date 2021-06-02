@@ -1,7 +1,9 @@
-const countdownEl = document.querySelector('.countdown');
+import game from './game';
 
-function timer() {
-    console.log(time)
+export function timer(time) {
+    const countdownEl = document.querySelector('.countdown');
+    console.log(`time = ${time}`)
+    console.log(`countdownEl = ${countdownEl}`)
     if (time) setInterval(updateCountdown, 1000);
     
     function updateCountdown() {

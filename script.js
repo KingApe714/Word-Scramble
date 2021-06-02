@@ -1,3 +1,6 @@
+// import{howl} from 'howler';
+
+
 const body = document.querySelector('.body')
 const displayLetters = document.querySelector('.shuffled-letters');
 const guessLetters = document.querySelector('.guessed-letters');

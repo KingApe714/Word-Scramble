@@ -1,4 +1,4 @@
-function makeNode(ch) {
+export function makeNode(ch) {
     this.ch = ch;
     this.complete = false;
     this.map = {};
@@ -6,7 +6,7 @@ function makeNode(ch) {
     this.words = [];
 }
 
-function add(str, i, root) {
+export function add(str, i, root) {
     if (i === str.length) {
         root.complete = true;
         return
@@ -21,7 +21,7 @@ function add(str, i, root) {
     add(str, i + 1, root.map[str[i]]);
 }
 
-function search(str, i, root) {
+export function search(str, i, root) {
     if (i === str.length) 
         return root.words;
 
@@ -31,7 +31,7 @@ function search(str, i, root) {
     return search(str, i+1, root.map[str[i]]);
 }
 
-function fetchGameWords(tree, string) {
+export function fetchGameWords(tree, string) {
     let gameWords = []
     const queue = [[tree, string]];
     while (queue.length) {
@@ -71,3 +71,7 @@ function fetchWord(currentNode) {
     
     return word;
 }
+
+export default makeNode
+// export default add
+// export default fetchGameWords
