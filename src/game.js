@@ -1,7 +1,6 @@
 import { makeNode, add, fetchGameWords } from './trie.js'
 import { placeHolders } from './placeholder.js'
-// import { modal } from './instructions.js'
-import { howl } from 'howler';
+import { Howl, Howler } from 'howler';
 
 let gameWords;
 let passWords;
@@ -17,6 +16,28 @@ let time;
 
 
 async function game() {
+    const playMusic = document.querySelector('.play-music');
+    const pauseMusic = document.querySelector('.pause-music');
+    
+    let music = null;
+    playMusic.addEventListener('click', function() {
+        if (music != null) {
+            music.stop();
+            music.unload();
+            music = null;
+        }
+        music = new Howl({
+            src: ['../sounds/bensound-ukulele.mp3']
+        });
+        music.play();
+    })
+
+    pauseMusic.addEventListener('click', function() {
+        music.stop()
+        music.unload()
+        music = null;
+    })
+
     const modalBtn = document.querySelector('.modal-button');
     const modalBg = document.querySelector('.modal-bg');
     const modalClose = document.querySelector('.modal-close');
@@ -32,7 +53,7 @@ async function game() {
             modalChild.innerHTML += "&nbsp;"
         }
         let char = 0;
-        let timer = setInterval(onTick, 50);
+        let t = setInterval(onTick, 50);
         
         function onTick() {
             const span = modalChild.querySelectorAll('.letter')[char];
@@ -45,8 +66,8 @@ async function game() {
         }
         
         function complete() {
-            clearInterval(timer);
-            timer = null;
+            clearInterval(t);
+            t = null;
         }
         
     })
@@ -81,12 +102,9 @@ async function game() {
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
     
+    console.log('hit here')
     timer()
     shuffle()
-    
-    console.log(displayLetters)
-    console.log(guessLetters)
-    console.log(body)
 
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
@@ -110,11 +128,7 @@ async function game() {
         entries();
     })
 
-    console.log(`letters = ${letters}`)
-    console.log(`guess = ${guess}`)
-    console.log(`winningWord = ${winningWord}`)
-    console.log(`gameWords = ${gameWords}`)
-    console.log(`passWords = ${passWords}`)
+    return
 }
 
 async function getDictionary() {
@@ -129,11 +143,13 @@ async function getDictionary() {
     })
 }
 
+let c = 0
+
 function timer() {
     const countdownEl = document.querySelector('.countdown');
-    console.log(`time = ${time}`)
-    console.log(`countdownEl = ${countdownEl}`)
-    if (time) setInterval(updateCountdown, 1000);
+    let test = setInterval(updateCountdown, 1000);
+    c ++;
+    console.log(`time = ${time} c = ${c}`)
     
     function updateCountdown() {
         const modalBg = document.querySelector('.modal-bg');
@@ -145,6 +161,7 @@ function timer() {
     
         countdownEl.innerHTML = `${minutes}:${seconds}`;
         if (time > 0) time--;
+        console.log(`time = ${time}`)
     
         if (time === 0 && passStage) {
             const nextButton = document.createElement('button');
@@ -153,6 +170,7 @@ function timer() {
             modalChild.innerHTML = `<div>Get ready for the next stage! total points =  ${points}</div>`
             modalChild.appendChild(nextButton)
             nextButton.addEventListener('click', function() {
+                clearInterval(test)
                 modalBg.classList.remove('bg-active');
                 game()
             })
@@ -164,6 +182,7 @@ function timer() {
             modalChild.innerHTML = `<div>GAME OVER! your score = ${points}</div>`
             modalChild.appendChild(restartButtonn)
             restartButtonn.addEventListener('click', function() {
+                clearInterval(test)
                 points = 0;
                 modalBg.classList.remove('bg-active');
                 game()
@@ -181,6 +200,7 @@ function handler(e) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
         guess += str;
+        playSound('type.wav')
     }
     if (str === "BACKSPACE") {
         let char = guess[guess.length - 1]
@@ -196,9 +216,6 @@ function handler(e) {
 
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
-    
-    // console.log(`guess = ${guess}`)
-    // console.log(`letters = ${letters}`)
 }
 
 function entries() {
@@ -212,6 +229,7 @@ function entries() {
             node.childNodes.forEach(innerNode => {
                 if (innerNode.firstChild.innerHTML === guess) {
                     innerNode.firstChild.classList.remove('hidden-text')
+                    playSound(`sound${guess.length}.wav`)
                 }
             })
         })
@@ -232,6 +250,13 @@ function entries() {
         points += multiplier * 100;
         pointsDiv.innerHTML = points;
     }
+}
+
+function playSound(file) {
+    let sound = new Howl({
+        src: [`../sounds/${file}`]
+    })
+    sound.play();
 }
 
 function clear() {
