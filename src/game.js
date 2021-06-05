@@ -13,6 +13,8 @@ let winningWord;
 let guess = '';
 let passStage = false;
 let time;
+let gameLetters = {}
+let positions = []
 
 
 async function game() {
@@ -84,8 +86,7 @@ async function game() {
     const clearButton = document.querySelector('.clear-button');
     const pointsDiv = document.querySelector('.points');
     const remainingWordsDiv = document.querySelector('.remaining-words')
-    
-    
+
     await getDictionary()
     const root = new makeNode(null);
     for (const item of globalDictionary)
@@ -101,34 +102,63 @@ async function game() {
     winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
-    
-    console.log('hit here')
-    timer()
-    shuffle()
 
+    
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
     remainingWordsDiv.innerHTML = gameWords.length;
     pointsDiv.innerHTML = points;
     correctEntries.innerHTML = '';
-
+    
     placeHolders(gameWords)
     
     body.addEventListener('keydown', handler)
-
+    
     shuffleButton.addEventListener('click', function() {
         shuffle()
     })
-
+    
     clearButton.addEventListener('click', function() {
         clear()
     })
-
+    
     enterButton.addEventListener('click', function() {
         entries();
     })
+    timer()
+    shuffle()
+    
+    gameLetters = {}
 
-    return
+    const lettersContainer = document.querySelector('.letters-container')
+    lettersContainer.childNodes.forEach(n => lettersContainer.remove(n))
+
+    const guessContainer = document.querySelector('.guess-container')
+    guessContainer.childNodes.forEach(n => guessContainer.remove(n))
+
+    for (let i = 0; i < letters.length; i++) {
+        let currentDiv = document.createElement('div');
+        currentDiv.innerHTML = letters[i];
+        currentDiv.className = 'game-letter'
+        currentDiv.style.left = i * 120 + 'px';
+        currentDiv.addEventListener('click', function() {
+            if (gameLetters[i].selected) {
+                guessContainer.removeChild(currentDiv)
+                lettersContainer.appendChild(currentDiv)
+                gameLetters[i].selected = false;
+            } else {
+                lettersContainer.removeChild(currentDiv)
+                guessContainer.appendChild(currentDiv)
+                gameLetters[i].selected = true;
+            }
+        })
+        gameLetters[i] = {
+            char: letters[i],
+            div: currentDiv,
+            selected: false
+        }
+        lettersContainer.appendChild(currentDiv)
+    }
 }
 
 async function getDictionary() {
@@ -142,27 +172,21 @@ async function getDictionary() {
         return word.length === 7
     })
 }
-
-let c = 0
-
 function timer() {
     const countdownEl = document.querySelector('.countdown');
-    let test = setInterval(updateCountdown, 1000);
-    c ++;
-    console.log(`time = ${time} c = ${c}`)
+    let t = setInterval(updateCountdown, 1000);
     
     function updateCountdown() {
         const modalBg = document.querySelector('.modal-bg');
         const modalChild = document.querySelector('.modal-child');
         const minutes = Math.floor(time / 60);
         let seconds = time % 60;
-    
+        
         seconds = seconds < 10 ? '0' + seconds : seconds;
-    
+        
         countdownEl.innerHTML = `${minutes}:${seconds}`;
         if (time > 0) time--;
-        console.log(`time = ${time}`)
-    
+        
         if (time === 0 && passStage) {
             const nextButton = document.createElement('button');
             nextButton.innerText = 'NEXT STAGE';
@@ -170,7 +194,7 @@ function timer() {
             modalChild.innerHTML = `<div>Get ready for the next stage! total points =  ${points}</div>`
             modalChild.appendChild(nextButton)
             nextButton.addEventListener('click', function() {
-                clearInterval(test)
+                clearInterval(t)
                 modalBg.classList.remove('bg-active');
                 game()
             })
@@ -182,7 +206,7 @@ function timer() {
             modalChild.innerHTML = `<div>GAME OVER! your score = ${points}</div>`
             modalChild.appendChild(restartButtonn)
             restartButtonn.addEventListener('click', function() {
-                clearInterval(test)
+                clearInterval(t)
                 points = 0;
                 modalBg.classList.remove('bg-active');
                 game()
@@ -194,18 +218,40 @@ function timer() {
 function handler(e) {
     const guessLetters = document.querySelector('.guessed-letters');
     const displayLetters = document.querySelector('.shuffled-letters');
-    const str = e.key.toUpperCase();
 
+    const lettersContainer = document.querySelector('.letters-container')
+    const guessContainer = document.querySelector('.guess-container')
+    const str = e.key.toUpperCase();
+    
     if (letters.includes(str)) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
         guess += str;
+        for (let key in gameLetters) {
+            if (gameLetters[key].char === str) {
+                if (!gameLetters[key].selected) {
+                    lettersContainer.removeChild(gameLetters[key].div)
+                    guessContainer.appendChild(gameLetters[key].div)
+                    gameLetters[key].selected = true;
+                }
+                break;
+            }
+        }
         playSound('type.wav')
     }
-    if (str === "BACKSPACE") {
+    if (str === "BACKSPACE" && guess.length) {
         let char = guess[guess.length - 1]
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
+
+        console.log(guessContainer.lastElementChild.innerHTML)
+        for (let key in gameLetters) {
+            if (gameLetters[key].char === guessContainer.lastElementChild.innerHTML) {
+                gameLetters[key].selected = false;
+            }
+        }
+        lettersContainer.appendChild(guessContainer.lastElementChild)
+        // guessContainer.removeChild(guessContainer.lastElementChild)
     } else if (str === "ENTER") {
         entries()
     } else if (str === "/") {
@@ -213,16 +259,20 @@ function handler(e) {
     } else if (str === "SHIFT") {
         shuffle()
     }
-
+    
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
+}
+
+function guessEntry() {
+
 }
 
 function entries() {
     const remainingWordsDiv = document.querySelector('.remaining-words')
     const correctEntries = document.querySelector('.correct-entries');
     const pointsDiv = document.querySelector('.points');
-
+    
     if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
         correctGuesses.push(guess);
         correctEntries.childNodes.forEach(node => {
@@ -235,7 +285,7 @@ function entries() {
         })
         
         remainingWordsDiv.innerHTML = gameWords.length - correctGuesses.length;
-
+        
         let multiplier = 0
         if (guess.length === 3) multiplier = 3;
         if (guess.length === 4) multiplier = 5;
@@ -245,7 +295,7 @@ function entries() {
             multiplier = 20;
             passStage = true;
         }
-
+        
         time += multiplier;
         points += multiplier * 100;
         pointsDiv.innerHTML = points;
@@ -263,13 +313,36 @@ function clear() {
     guess = "";
     letters = winningWord;
     shuffle();
-
+    
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
 }
 
 function shuffle() {
-    const arr = letters ? letters.split('') : winningWord.split('');
+    //shuffle letters in the letters-container
+    let arr;
+    let lettersArr;
+    const lettersContainer = document.querySelector('.letters-container')
+    let gameLetters = [...document.querySelectorAll('.game-letter')]
+    console.log(`gameLetters = ${gameLetters}`)
+    // gameLetters.forEach((letter, idx) => {
+    //     console.log(`letter = ${letter}`)
+    //     setTimeout(() => {
+    //         // letter.style.zIndex = 7 - idx;
+    //         // letter.style.top = '50%';
+    //         letter.style.left = '50%';
+    //     }, idx * 100)
+    // })
+
+    //letters is the array of letters that I am rearranging randomly
+    if (letters) {
+        arr = letters.split('')
+        lettersArr = [...lettersContainer.children]
+        // lettersContainer.querySelectorAll('*').forEach(n => n.remove())
+        // console.log(lettersArr)
+    } else {
+        arr = winningWord.split('')
+    }
 
     for (let i = 0; i < arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);
@@ -278,7 +351,44 @@ function shuffle() {
         arr[j] = temp;
     }
 
+    console.log(gameLetters)
+    console.log(arr)
+    arr.forEach((char, idx) => {
+        //now lets grab the letters that match char
+        for (let i = 0; i < gameLetters.length; i++){
+            if (gameLetters[i].innerHTML === char) {
+                gameLetters[i].style.left = 100 * idx + 'px';
+                console.log(`node = ${gameLetters[i].innerHTML} left = ${gameLetters[i].style.left}`)
+                gameLetters = gameLetters.slice(0, i).concat(gameLetters.slice(i + 1))
+                break
+            }
+        }
+        console.log(gameLetters)
+    })
+    // gameLetters.forEach((letter, idx) => {
+    //     setTimeout(() => {
+    //         // letter.style.left = 
+    //     })
+    // })
+    // for (let i = 0; i < arr.length; i++) {
+    //     let j = Math.floor(Math.random() * arr.length);
+    //     let temp = arr[i]
+    //     arr[i] = arr[j];
+    //     arr[j] = temp;
+
+    //     if (lettersArr) {
+    //         let divTemp = lettersArr[i];
+    //         lettersArr[i] = lettersArr[j];
+    //         lettersArr[j] = divTemp;
+    //     }
+    // }
+    // if (lettersArr) {
+    //     lettersArr.forEach(ele => {
+    //         // lettersContainer.appendChild(ele);
+    //     })
+    // }
     letters =  arr.join('');
+    console.log(`letters = ${letters}`)
     // displayLetters.innerHTML = letters;
 }
 

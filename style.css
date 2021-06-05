@@ -91,3 +91,40 @@ body {
 .hidden-text {
     visibility: hidden;
 }
+
+.letters-container {
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-content: space-evenly; */
+    height: 300px;
+    border: 1px solid red;
+
+    position: relative;
+}
+
+.guess-container {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+    height: 300px;
+    border: 1px solid black;
+}
+
+.game-letter {
+    /* top: 50px; */
+    top: 50%;
+    cursor: pointer;
+    background-color: salmon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 10px;
+
+    position: absolute;
+    -webkit-transition: top 0.5s linear, left 0.5s linear;
+    transition: top 0.5s linear, left 0.5s linear;
+}
