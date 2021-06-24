@@ -230,6 +230,7 @@ function handler(e) {
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
+                    gameLetters[key].div.style.left = guessContainer.children.length * 120 + 'px';
                     lettersContainer.removeChild(gameLetters[key].div)
                     guessContainer.appendChild(gameLetters[key].div)
                     gameLetters[key].selected = true;
@@ -250,6 +251,16 @@ function handler(e) {
                 gameLetters[key].selected = false;
             }
         }
+        let left = 0;
+        let checker = 0;
+        for (let x = 0; x < lettersContainer.children.length; x++) {
+            if (x === 0 && lettersContainer.children[0].style.left !== 0) {
+                left = 0;
+                break;
+            } 
+            // if (lettersContainer.children[x].style.left)
+        }
+        guessContainer.lastElementChild.style.left = 
         lettersContainer.appendChild(guessContainer.lastElementChild)
         // guessContainer.removeChild(guessContainer.lastElementChild)
     } else if (str === "ENTER") {
@@ -310,6 +321,8 @@ function playSound(file) {
 }
 
 function clear() {
+    const displayLetters = document.querySelector('.shuffled-letters')
+    const guessLetters = document.querySelector('.guessed-letters')
     guess = "";
     letters = winningWord;
     shuffle();
@@ -319,30 +332,9 @@ function clear() {
 }
 
 function shuffle() {
-    //shuffle letters in the letters-container
-    let arr;
-    let lettersArr;
-    const lettersContainer = document.querySelector('.letters-container')
-    let gameLetters = [...document.querySelectorAll('.game-letter')]
-    console.log(`gameLetters = ${gameLetters}`)
-    // gameLetters.forEach((letter, idx) => {
-    //     console.log(`letter = ${letter}`)
-    //     setTimeout(() => {
-    //         // letter.style.zIndex = 7 - idx;
-    //         // letter.style.top = '50%';
-    //         letter.style.left = '50%';
-    //     }, idx * 100)
-    // })
-
-    //letters is the array of letters that I am rearranging randomly
-    if (letters) {
-        arr = letters.split('')
-        lettersArr = [...lettersContainer.children]
-        // lettersContainer.querySelectorAll('*').forEach(n => n.remove())
-        // console.log(lettersArr)
-    } else {
-        arr = winningWord.split('')
-    }
+    const displayLetters = document.querySelector('.shuffled-letters')
+    let arr = letters ? letters.split('') : winningWord.split('')
+    let gameLetters = [...document.querySelector('.letters-container').children]
 
     for (let i = 0; i < arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);
@@ -351,45 +343,19 @@ function shuffle() {
         arr[j] = temp;
     }
 
-    console.log(gameLetters)
-    console.log(arr)
     arr.forEach((char, idx) => {
         //now lets grab the letters that match char
         for (let i = 0; i < gameLetters.length; i++){
             if (gameLetters[i].innerHTML === char) {
-                gameLetters[i].style.left = 100 * idx + 'px';
-                console.log(`node = ${gameLetters[i].innerHTML} left = ${gameLetters[i].style.left}`)
+                gameLetters[i].style.left = 120 * idx + 'px';
                 gameLetters = gameLetters.slice(0, i).concat(gameLetters.slice(i + 1))
                 break
             }
         }
-        console.log(gameLetters)
     })
-    // gameLetters.forEach((letter, idx) => {
-    //     setTimeout(() => {
-    //         // letter.style.left = 
-    //     })
-    // })
-    // for (let i = 0; i < arr.length; i++) {
-    //     let j = Math.floor(Math.random() * arr.length);
-    //     let temp = arr[i]
-    //     arr[i] = arr[j];
-    //     arr[j] = temp;
-
-    //     if (lettersArr) {
-    //         let divTemp = lettersArr[i];
-    //         lettersArr[i] = lettersArr[j];
-    //         lettersArr[j] = divTemp;
-    //     }
-    // }
-    // if (lettersArr) {
-    //     lettersArr.forEach(ele => {
-    //         // lettersContainer.appendChild(ele);
-    //     })
-    // }
     letters =  arr.join('');
     console.log(`letters = ${letters}`)
-    // displayLetters.innerHTML = letters;
+    displayLetters.innerHTML = letters;
 }
 
 export default game

@@ -104,16 +104,15 @@ body {
 }
 
 .guess-container {
-    display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
     /* justify-content: space-evenly; */
     height: 300px;
     border: 1px solid black;
 }
 
 .game-letter {
-    /* top: 50px; */
-    top: 50%;
+    /* top: 30%; */
     cursor: pointer;
     background-color: salmon;
     display: flex;
@@ -125,6 +124,6 @@ body {
     margin: 10px;
 
     position: absolute;
-    -webkit-transition: top 0.5s linear, left 0.5s linear;
-    transition: top 0.5s linear, left 0.5s linear;
+    -webkit-transition: top 300ms linear, left 300ms linear;
+    transition: top 300ms linear, left 300ms linear;
 }
