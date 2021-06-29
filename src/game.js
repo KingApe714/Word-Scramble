@@ -224,6 +224,7 @@ function handler(e) {
     const guessContainer = document.querySelector('.guess-container')
     const str = e.key.toUpperCase();
     
+    console.log(`str = ${str}`)
     if (letters.includes(str)) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
@@ -232,6 +233,11 @@ function handler(e) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
                     lettersContainer.removeChild(gameLetters[key].div)
+                    //somewhere in here I have to reset the lettersContainer so that all
+                    //letters are on the left
+                    for (let i = 0; i < lettersContainer.children.length; i++) {
+                        lettersContainer.children[i].style.left = i * 120 + 'px';
+                    }
                     gameLetters[key].div.style.left = guessContainer.children.length * 120 + 'px';
                     guessContainer.appendChild(gameLetters[key].div)
                     gameLetters[key].selected = true;
@@ -242,6 +248,7 @@ function handler(e) {
         playSound('type.wav')
     }
     if (str === "BACKSPACE" && guess.length) {
+        console.log('you hit backspace!!')
         let char = guess[guess.length - 1]
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
