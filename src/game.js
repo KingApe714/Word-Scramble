@@ -215,6 +215,7 @@ function timer() {
     }
 }
 
+//in this function I have to focus on refactoring some of the logic
 function handler(e) {
     const guessLetters = document.querySelector('.guessed-letters');
     const displayLetters = document.querySelector('.shuffled-letters');
@@ -230,8 +231,8 @@ function handler(e) {
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
-                    gameLetters[key].div.style.left = guessContainer.children.length * 120 + 'px';
                     lettersContainer.removeChild(gameLetters[key].div)
+                    gameLetters[key].div.style.left = guessContainer.children.length * 120 + 'px';
                     guessContainer.appendChild(gameLetters[key].div)
                     gameLetters[key].selected = true;
                 }
@@ -260,7 +261,7 @@ function handler(e) {
             } 
             // if (lettersContainer.children[x].style.left)
         }
-        guessContainer.lastElementChild.style.left = 
+        // guessContainer.lastElementChild.style.left = 
         lettersContainer.appendChild(guessContainer.lastElementChild)
         // guessContainer.removeChild(guessContainer.lastElementChild)
     } else if (str === "ENTER") {
