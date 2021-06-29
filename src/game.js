@@ -268,7 +268,7 @@ function handler(e) {
             } 
             // if (lettersContainer.children[x].style.left)
         }
-        // guessContainer.lastElementChild.style.left = 
+        guessContainer.lastElementChild.style.left = lettersContainer.children.length * 120 + 'px';
         lettersContainer.appendChild(guessContainer.lastElementChild)
         // guessContainer.removeChild(guessContainer.lastElementChild)
     } else if (str === "ENTER") {
