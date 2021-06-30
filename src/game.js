@@ -159,6 +159,10 @@ async function game() {
         }
         lettersContainer.appendChild(currentDiv)
     }
+    //with this test I at least know that I have every letter including the repeated in a separate spot
+    for (let key in gameLetters) {
+        console.log(gameLetters[key])
+    }
 }
 
 async function getDictionary() {
@@ -231,6 +235,7 @@ function handler(e) {
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
+                    console.log('we here at least')
                     lettersContainer.removeChild(gameLetters[key].div)
                     //set all letters in lettersContainer to the left when letter is used
                     for (let i = 0; i < lettersContainer.children.length; i++) {
@@ -239,9 +244,10 @@ function handler(e) {
                     gameLetters[key].div.style.left = guessContainer.children.length * 120 + 'px';
                     gameLetters[key].selected = true;
                     guessContainer.appendChild(gameLetters[key].div)
+                    break;
                 }
-                break;
             }
+            console.log(`key = ${key}`)
         }
         playSound('type.wav')
     }
@@ -336,9 +342,16 @@ function clear() {
     guessLetters.innerHTML = guess;
 }
 
+let firstShuffle = true;
 function shuffle() {
     const displayLetters = document.querySelector('.shuffled-letters')
-    let arr = letters ? letters.split('') : winningWord.split('')
+    let arr;
+    if (firstShuffle) {
+        arr = winningWord.split('')
+        firstShuffle = false;
+    } else {
+        arr = letters.split('')
+    }
     let gameLetters = [...document.querySelector('.letters-container').children]
 
     for (let i = 0; i < arr.length; i++) {
