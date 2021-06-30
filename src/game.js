@@ -159,10 +159,6 @@ async function game() {
         }
         lettersContainer.appendChild(currentDiv)
     }
-    //with this test I at least know that I have every letter including the repeated in a separate spot
-    for (let key in gameLetters) {
-        console.log(gameLetters[key])
-    }
 }
 
 async function getDictionary() {
@@ -247,7 +243,7 @@ function handler(e) {
                     break;
                 }
             }
-            console.log(`key = ${key}`)
+            // console.log(`key = ${key}`)
         }
         playSound('type.wav')
     }
@@ -336,10 +332,21 @@ function clear() {
     const guessLetters = document.querySelector('.guessed-letters')
     guess = "";
     letters = winningWord;
-    shuffle();
+    // shuffle();
     
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
+
+    const guessContainer = document.querySelector('.guess-container')
+    const lettersContainer = document.querySelector('.letters-container')
+    //now I simply want to remove all of the children of the guess container and place them into the 
+    //lettersContainer
+    while (guessContainer.children.length) {
+        lettersContainer.appendChild(guessContainer.lastElementChild)
+    }
+    for (let i = 0; i < lettersContainer.children.length; i++) {
+        lettersContainer.children[i].style.left = i * 120 + 'px';
+    }
 }
 
 let firstShuffle = true;
