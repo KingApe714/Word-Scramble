@@ -334,7 +334,7 @@ function clear() {
     // letters = winningWord;
     // shuffle();
     
-    
+    //need more testing
     const guessContainer = document.querySelector('.guess-container')
     const lettersContainer = document.querySelector('.letters-container')
     //now I simply want to remove all of the children of the guess container and place them into the 
