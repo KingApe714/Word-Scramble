@@ -334,22 +334,22 @@ function clear() {
     const displayLetters = document.querySelector('.shuffled-letters')
     const guessLetters = document.querySelector('.guessed-letters')
     guess = "";
-    // letters = winningWord;
-    // shuffle();
-    
-    //need more testing
     const guessContainer = document.querySelector('.guess-container')
     const lettersContainer = document.querySelector('.letters-container')
-    //now I simply want to remove all of the children of the guess container and place them into the 
-    //lettersContainer
+    
+    //remove all letter bubbles from guess container to letters container
     while (guessContainer.children.length) {
-        letters += guessContainer.firstElementChild.innerHTML
+        letters += guessContainer.firstElementChild.innerHTML;
         lettersContainer.appendChild(guessContainer.firstElementChild)
     }
+    //ensure all letter bubbles are styled properly
     for (let i = 0; i < lettersContainer.children.length; i++) {
         lettersContainer.children[i].style.left = i * 120 + 'px';
     }
-
+    
+    for (let key in gameLetters) {
+        gameLetters[key].selected = false;
+    }
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
 }
