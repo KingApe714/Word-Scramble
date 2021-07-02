@@ -228,6 +228,8 @@ function handler(e) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
         guess += str;
+
+        console.log(`str = ${str}`)
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
@@ -327,6 +329,7 @@ function playSound(file) {
     sound.play();
 }
 
+//I need for this to update my gameLetters object
 function clear() {
     const displayLetters = document.querySelector('.shuffled-letters')
     const guessLetters = document.querySelector('.guessed-letters')
