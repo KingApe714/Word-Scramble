@@ -381,7 +381,7 @@ function shuffle() {
         }
     })
     letters =  arr.join('');
-    console.log(`letters = ${letters}`)
+    // console.log(`letters = ${letters}`)
     displayLetters.innerHTML = letters;
 }
 
