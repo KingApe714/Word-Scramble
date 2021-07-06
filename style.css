@@ -2,19 +2,6 @@ body {
     background: rgba(17, 209, 216, 0.5);
 }
 
-#canvas1 {
-    /* border: 1px solid white; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 900px;
-    height: 700px;
-    background: white;
-    font-family: 'Orbitron', sans-serif;
-    font-family: 'DotGothic16', sans-serif;
-}
-
 .modal-bg {
     position: fixed;
     top: 0;
