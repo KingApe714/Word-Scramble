@@ -1,7 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-    background: rgba(17, 209, 216, 0.5);
+    --game-red: #E63946;
+    --game-white: #F1FAEE;
+    --game-light-blue: #A8DADC;
+    --game-blue: #457B9D;
+    --game-dark-blue: #1D3557;
+
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--game-light-blue);
+}
+
+button {
+    background-color: var(--game-dark-blue);
+    color: var(--game-white);
+    border-radius: 8px;
+    height: 30px;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .modal-bg {
@@ -106,7 +124,10 @@ body {
 .game-letter {
     /* top: 30%; */
     cursor: pointer;
-    background-color: salmon;
+    background-color: var(--game-red);
+    color: var(--game-white);
+    font-size: 25px;
+    font-weight: bolder;
     display: flex;
     justify-content: center;
     align-items: center;
