@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
 body {
     background: rgba(17, 209, 216, 0.5);
 }
@@ -15,6 +17,7 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s;
+    z-index: 2
 }
 
 .bg-active {
@@ -23,7 +26,8 @@ body {
 }
 
 .modal {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
+    padding: 50px;
     background-color: white;
     border-radius: 5px;
     position: relative;
@@ -32,6 +36,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .modal-close {
@@ -109,7 +114,7 @@ body {
     width: 100px;
     border-radius: 50%;
     margin: 10px;
-
+    z-index: 1;
     position: absolute;
     -webkit-transition: top 300ms linear, left 300ms linear;
     transition: top 300ms linear, left 300ms linear;
