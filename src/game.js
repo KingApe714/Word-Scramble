@@ -81,7 +81,7 @@ async function game() {
     const sidePanel = document.querySelector('.sidepanel')
 
     panelButton.addEventListener('click', function() {
-        sidePanel.style.width = '150px';
+        sidePanel.style.width = '130px';
     })
 
     const body = document.querySelector('.body')
