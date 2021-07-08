@@ -25,7 +25,16 @@ button:hover {
 }
 
 .sidepanel {
-    display: none;
+    /* display: none; */
+    width: 0px; /* this is to be changed with JS */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    overflow-x: hidden;
+
+    transition: 0.5s;
 }
 
 .modal-bg {
