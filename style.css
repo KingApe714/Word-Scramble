@@ -7,6 +7,7 @@ body {
     --game-blue: #457B9D;
     --game-dark-blue: #1D3557;
 
+    display: flex;
     font-family: 'Nunito Sans', sans-serif;
     background: var(--game-light-blue);
 }
@@ -21,6 +22,10 @@ button {
 
 button:hover {
     cursor: pointer;
+}
+
+.sidepanel {
+    display: none;
 }
 
 .modal-bg {
@@ -79,6 +84,10 @@ button:hover {
 .letter.fade {
     opacity: 1;
     transform: translateY(0px)
+}
+
+.inner-game-container {
+    width: 860px;
 }
 
 .correct-entries {

@@ -77,6 +77,13 @@ async function game() {
         modalBg.classList.remove('bg-active');
     })
 
+    const panelButton = document.querySelector('.panel-button')
+    const sidePanel = document.querySelector('.sidepanel')
+
+    panelButton.addEventListener('click', function() {
+        sidePanel.style.display = "block"
+    })
+
     const body = document.querySelector('.body')
     const guessLetters = document.querySelector('.guessed-letters');
     const displayLetters = document.querySelector('.shuffled-letters');
