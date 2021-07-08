@@ -126,7 +126,7 @@ button:hover {
     /* flex-direction: row; */
     /* flex-wrap: wrap; */
     /* justify-content: space-evenly; */
-    height: 300px;
+    height: 140px;
     border: 1px solid red;
 
     position: relative;
@@ -136,7 +136,7 @@ button:hover {
     /* display: flex;
     flex-direction: row; */
     /* justify-content: space-evenly; */
-    height: 300px;
+    height: 140px;
     border: 1px solid black;
 }
 
