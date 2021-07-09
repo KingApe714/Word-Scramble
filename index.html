@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word-Scramble</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="./dist/main.js"></script>
-</head>
-<body class="body">
-    <button class="panel-button">MENU</button>
-    <div class="sidepanel">
-        <span class="panel-close">X</span>
-        <button class="modal-button">INSTRUCTIONS</button>
-        <div class="modal-bg">
-            <div class="modal">
-                <span class="modal-close">X</span>
-                <h2 class="modal-child"></h2>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Word-Scramble</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="./dist/main.js"></script>
+    </head>
+    <body class="body">
+        <button class="panel-button">MENU</button>
+        <div class="sidepanel">
+            <span class="panel-close">X</span>
+            <button class="modal-button">INSTRUCTIONS</button>
+            <div class="modal-bg">
+                <div class="modal">
+                    <span class="modal-close">X</span>
+                    <h2 class="modal-child"></h2>
+                </div>
             </div>
-        </div>
-        <div class="guessed-letters"></div>
             <button class="enter-button">ENTER</button>
             <button class="shuffle-button">SHUFFLE</button>
             <button class="clear-button">CLEAR</button>
-        <div class="music-div">
             <button class="play-music">PLAY MUSIC</button>
             <button class="pause-music">PAUSE MUSIC</button>
         </div>
-        <div class="remaining-words"></div>
-        <div class="points">0</div>
-        <div class="shuffled-letters"></div>
-    </div>
-    <div class="game-board">
-        <div class='inner-game-container'>
+        <div class="game-board">
+            <div class='inner-game-container'>
             <div class='guess-container'></div>
             <div class='letters-container'></div>
         </div>
-        <div class='words-container'>
-            <div class="countdown">2:00</div>
-            <div class="correct-entries"></div>
+            <div class='words-container'>
+                <div class="countdown">2:00</div>
+                <div class="points">0</div>
+                <div class="remaining-words"></div>
+                <div class="shuffled-letters"></div>
+                <div class="guessed-letters"></div>
+                <div class="correct-entries"></div>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
