@@ -152,6 +152,10 @@ button:hover {
     visibility: hidden;
 }
 
+.game-board {
+    padding-left: 30px;
+}
+
 .letters-container {
     height: 140px;
     position: relative;
