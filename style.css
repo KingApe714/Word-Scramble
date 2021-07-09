@@ -48,6 +48,14 @@ button:hover {
     top: 10px;
     right: 10px;
     font-weight: bold;
+    color: white;
+    border: 1px solid white;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -145,6 +153,7 @@ button:hover {
 .guess-container {
     height: 140px;
     border: 1px solid black;
+    position: relative;
 }
 
 .game-letter {

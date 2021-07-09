@@ -79,6 +79,11 @@ async function game() {
 
     const panelButton = document.querySelector('.panel-button')
     const sidePanel = document.querySelector('.sidepanel')
+    const panelClose = document.querySelector('.panel-close')
+
+    panelClose.addEventListener('click', function() {
+        sidePanel.style.width = '0px';
+    })
 
     panelButton.addEventListener('click', function() {
         sidePanel.style.width = '150px';
@@ -231,12 +236,12 @@ function handler(e) {
     const guessContainer = document.querySelector('.guess-container')
     const str = e.key.toUpperCase();
     
+    //now I know that the user has clicked on a letter that is available
     if (letters.includes(str)) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
         guess += str;
-
-        console.log(`str = ${str}`)
+        
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
@@ -252,7 +257,6 @@ function handler(e) {
                     break;
                 }
             }
-            // console.log(`key = ${key}`)
         }
         playSound('type.wav')
     }
@@ -261,24 +265,14 @@ function handler(e) {
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
 
-        // console.log(guessContainer.lastElementChild.innerHTML)
         for (let key in gameLetters) {
             if (gameLetters[key].char === guessContainer.lastElementChild.innerHTML) {
                 gameLetters[key].selected = false;
             }
         }
-        let left = 0;
-        let checker = 0;
-        for (let x = 0; x < lettersContainer.children.length; x++) {
-            if (x === 0 && lettersContainer.children[0].style.left !== 0) {
-                left = 0;
-                break;
-            } 
-            // if (lettersContainer.children[x].style.left)
-        }
+
         guessContainer.lastElementChild.style.left = lettersContainer.children.length * 120 + 'px';
         lettersContainer.appendChild(guessContainer.lastElementChild)
-        // guessContainer.removeChild(guessContainer.lastElementChild)
     } else if (str === "ENTER") {
         entries()
     } else if (str === "/") {
