@@ -26,10 +26,15 @@ button:hover {
 }
 
 .sidepanel {
-    /* display: none; */
+    padding-top: 45px;
     width: 0px; /* this is to be changed with JS */
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.5);
