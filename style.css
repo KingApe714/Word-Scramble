@@ -25,6 +25,11 @@ button:hover {
     cursor: pointer;
 }
 
+.side-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .sidepanel {
     padding-top: 45px;
     width: 0px; /* this is to be changed with JS */
@@ -41,6 +46,10 @@ button:hover {
     overflow-x: hidden;
 
     transition: 0.5s;
+}
+
+.side-info {
+    padding-top: 350px;
 }
 
 .panel-close {
@@ -128,7 +137,7 @@ button:hover {
 }
 
 .words-container {
-    height: 700px;
+    height: 480px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -145,14 +154,11 @@ button:hover {
 
 .letters-container {
     height: 140px;
-    border: 1px solid red;
-
     position: relative;
 }
 
 .guess-container {
     height: 140px;
-    border: 1px solid black;
     position: relative;
 }
 

@@ -10,21 +10,30 @@
         <script src="./dist/main.js"></script>
     </head>
     <body class="body">
-        <button class="panel-button">MENU</button>
-        <div class="sidepanel">
-            <span class="panel-close">X</span>
-            <button class="modal-button">INSTRUCTIONS</button>
-            <div class="modal-bg">
-                <div class="modal">
-                    <span class="modal-close">X</span>
-                    <h2 class="modal-child"></h2>
+        <div class="side-container">
+            <button class="panel-button">MENU</button>
+            <div class="sidepanel">
+                <span class="panel-close">X</span>
+                <button class="modal-button">INSTRUCTIONS</button>
+                <div class="modal-bg">
+                    <div class="modal">
+                        <span class="modal-close">X</span>
+                        <h2 class="modal-child"></h2>
+                    </div>
                 </div>
+                <button class="enter-button">ENTER</button>
+                <button class="shuffle-button">SHUFFLE</button>
+                <button class="clear-button">CLEAR</button>
+                <button class="play-music">PLAY MUSIC</button>
+                <button class="pause-music">PAUSE MUSIC</button>
             </div>
-            <button class="enter-button">ENTER</button>
-            <button class="shuffle-button">SHUFFLE</button>
-            <button class="clear-button">CLEAR</button>
-            <button class="play-music">PLAY MUSIC</button>
-            <button class="pause-music">PAUSE MUSIC</button>
+            <div class="side-info">
+                <div class="countdown">2:00</div>
+                <div class="points">0</div>
+                <div class="remaining-words"></div>
+                <div class="shuffled-letters"></div>
+                <div class="guessed-letters"></div>
+            </div>
         </div>
         <div class="game-board">
             <div class='inner-game-container'>
@@ -32,11 +41,6 @@
             <div class='letters-container'></div>
         </div>
             <div class='words-container'>
-                <div class="countdown">2:00</div>
-                <div class="points">0</div>
-                <div class="remaining-words"></div>
-                <div class="shuffled-letters"></div>
-                <div class="guessed-letters"></div>
                 <div class="correct-entries"></div>
             </div>
         </div>
