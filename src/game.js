@@ -115,7 +115,7 @@ async function game() {
         add(item, 0, root);
 
     //set up timer that will countdown
-    const startingMinutes = 1;
+    const startingMinutes = 2;
     time = startingMinutes * 60;
     
     //grab all relevant game words
@@ -304,7 +304,10 @@ function handler(e) {
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
+                    //the repeated letter bug is happening here
+                    console.log(gameLetters[key].div)
                     lettersContainer.removeChild(gameLetters[key].div)
+                    console.log(lettersContainer)
                     //set all letters in lettersContainer to the left when letter is used
                     for (let i = 0; i < lettersContainer.children.length; i++) {
                         lettersContainer.children[i].style.left = i * 120 + 'px';
@@ -323,14 +326,25 @@ function handler(e) {
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
 
-        for (let key in gameLetters) {
-            if (gameLetters[key].char === guessContainer.lastElementChild.innerHTML) {
-                gameLetters[key].selected = false;
+        // for (let key in gameLetters) {
+        //     //the repeated letter bug is here
+        //     if (gameLetters[key].char === guessContainer.lastElementChild.innerHTML && gameLetters[key].selected) {
+        //         gameLetters[key].selected = false;
+        //         break
+        //     }
+        // }
+
+        //looping through winningWord backword fixes the rrepeated letter bug but it 
+        //causes a new bug where that letter can no longer be used for its animation
+        for (let i = winningWord.length - 1; i >= 0; i--) {
+            if (gameLetters[i].char === guessContainer.lastElementChild.innerHTML && gameLetters[i].selected) {
+                gameLetters[i].selected = false;
+                break
             }
         }
-
         guessContainer.lastElementChild.style.left = lettersContainer.children.length * 120 + 'px';
         lettersContainer.appendChild(guessContainer.lastElementChild)
+
     } else if (str === "ENTER") {
         entries()
     } else if (str === "/") {
