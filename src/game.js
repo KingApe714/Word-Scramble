@@ -165,26 +165,38 @@ async function game() {
     const guessContainer = document.querySelector('.guess-container')
     guessContainer.childNodes.forEach(n => guessContainer.remove(n))
 
+    //the letters and the guess variables need to be reset
     for (let i = 0; i < letters.length; i++) {
         let currentDiv = document.createElement('div');
         currentDiv.innerHTML = letters[i];
         currentDiv.className = 'game-letter'
-        //I need to change the styling of this letter bubble
         currentDiv.style.left = i * 120 + 'px';
         currentDiv.addEventListener('click', function() {
             //move the bubble from guessContainer to the lettersContainer
+            let str = gameLetters[i].div.innerHTML
+            
             if (gameLetters[i].selected) {
-                // currentDiv.style.left = lettersContainer.children.length * 120 + 'px';
+                let idx = guess.indexOf(str)
+                guess = guess.slice(0, idx) + guess.slice(idx + 1);
+                letters += str;
                 guessContainer.removeChild(currentDiv)
                 lettersContainer.appendChild(currentDiv)
                 gameLetters[i].selected = false;
                 //move the bubble from lettersContainer to the guessContainer
             } else {
-                // currentDiv.style.left = guessContainer.children.length * 120 + 'px';
+                let idx = letters.indexOf(str)
+                letters = letters.slice(0, idx) + letters.slice(idx + 1);
+                guess += str;
+                //play the sound
+                playSound('type.wav')
+                
                 lettersContainer.removeChild(currentDiv)
                 guessContainer.appendChild(currentDiv)
                 gameLetters[i].selected = true;
             }
+
+            console.log(`letters = ${letters}`)
+            console.log(`guess = ${guess}`)
             resetContainer(guessContainer)
             resetContainer(lettersContainer)
         })
