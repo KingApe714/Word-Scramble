@@ -16,6 +16,7 @@ let time;
 let gameLetters = {}
 let positions = []
 
+let firstShuffle = true;
 
 async function game() {
 
@@ -114,7 +115,7 @@ async function game() {
         add(item, 0, root);
 
     //set up timer that will countdown
-    const startingMinutes = 2;
+    const startingMinutes = 1;
     time = startingMinutes * 60;
     
     //grab all relevant game words
@@ -125,6 +126,8 @@ async function game() {
     winningWord = winningWords[Math.floor(Math.random() * winningWords.length)];
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
+
+    console.log(`letters = ${letters}`)
 
     //set up the display of relevant game rendering
     displayLetters.innerHTML = letters;
@@ -151,19 +154,16 @@ async function game() {
     enterButton.addEventListener('click', function() {
         entries();
     })
+
     timer()
+    firstShuffle = true;
     shuffle()
     
     gameLetters = {}
 
     //set up all of the game letter bubbles and their functionality
-    //I am trying to clear out whatever is in these containers to then set them up with new letters
-    //this is what I believe is currently breaking my next stage setup
     const lettersContainer = document.querySelector('.letters-container')
-    lettersContainer.childNodes.forEach(n => lettersContainer.remove(n))
-
     const guessContainer = document.querySelector('.guess-container')
-    guessContainer.childNodes.forEach(n => guessContainer.remove(n))
 
     //the letters and the guess variables need to be reset
     for (let i = 0; i < letters.length; i++) {
@@ -179,7 +179,7 @@ async function game() {
                 let idx = guess.indexOf(str)
                 guess = guess.slice(0, idx) + guess.slice(idx + 1);
                 letters += str;
-                
+
                 guessContainer.removeChild(currentDiv)
                 lettersContainer.appendChild(currentDiv)
                 gameLetters[i].selected = false;
@@ -196,9 +196,7 @@ async function game() {
                 guessContainer.appendChild(currentDiv)
                 gameLetters[i].selected = true;
             }
-
-            console.log(`letters = ${letters}`)
-            console.log(`guess = ${guess}`)
+            
             resetContainer(guessContainer)
             resetContainer(lettersContainer)
         })
@@ -247,30 +245,45 @@ function timer() {
         countdownEl.innerHTML = `${minutes}:${seconds}`;
         if (time > 0) time--;
         
-        if (time === 0 && passStage) {
-            const nextButton = document.createElement('button');
-            nextButton.innerText = 'NEXT STAGE';
-            modalBg.classList.add('bg-active');
-            modalChild.innerHTML = `<div>Get ready for the next stage! total points =  ${points}</div>`
-            modalChild.appendChild(nextButton)
-            nextButton.addEventListener('click', function() {
-                clearInterval(t)
-                modalBg.classList.remove('bg-active');
-                game()
-            })
-        } else if (time === 0 && !passStage) {
-            time = null;
-            const restartButtonn = document.createElement('button');
-            restartButtonn.innerText = 'RESTART';
-            modalBg.classList.add('bg-active');
-            modalChild.innerHTML = `<div>GAME OVER! your score = ${points}</div>`
-            modalChild.appendChild(restartButtonn)
-            restartButtonn.addEventListener('click', function() {
-                clearInterval(t)
-                points = 0;
-                modalBg.classList.remove('bg-active');
-                game()
-            })
+        if (time === 0) {
+            //empty out both the containers
+            let lettersContainer = document.querySelector('.letters-container')
+            let childE = lettersContainer.firstElementChild
+            while (childE) {
+                lettersContainer.removeChild(childE)
+                childE = lettersContainer.firstElementChild
+            }
+            let guessContainer = document.querySelector('.guess-container')
+            let childF = guessContainer.firstElementChild
+            while (childF) {
+                guessContainer.removeChild(childF)
+                childF = guessContainer.firstElementChild
+            }
+            if (passStage) {
+                const nextButton = document.createElement('button');
+                nextButton.innerText = 'NEXT STAGE';
+                modalBg.classList.add('bg-active');
+                modalChild.innerHTML = `<div>Get ready for the next stage! total points =  ${points}</div>`
+                modalChild.appendChild(nextButton)
+                nextButton.addEventListener('click', function() {
+                    clearInterval(t)
+                    modalBg.classList.remove('bg-active');
+                    game()
+                })
+            } else {
+                time = null;
+                const restartButtonn = document.createElement('button');
+                restartButtonn.innerText = 'RESTART';
+                modalBg.classList.add('bg-active');
+                modalChild.innerHTML = `<div>GAME OVER! your score = ${points}</div>`
+                modalChild.appendChild(restartButtonn)
+                restartButtonn.addEventListener('click', function() {
+                    clearInterval(t)
+                    points = 0;
+                    modalBg.classList.remove('bg-active');
+                    game()
+                })
+            }
         }
     }
 }
@@ -402,7 +415,6 @@ function clear() {
     guessLetters.innerHTML = guess;
 }
 
-let firstShuffle = true;
 function shuffle() {
     const displayLetters = document.querySelector('.shuffled-letters')
     let arr;
@@ -412,7 +424,11 @@ function shuffle() {
     } else {
         arr = letters.split('')
     }
+    console.log(document.querySelector('.letters-container'))
+    
     let gameLetters = [...document.querySelector('.letters-container').children]
+    console.log(gameLetters)
+
 
     for (let i = 0; i < arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);
