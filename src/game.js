@@ -18,6 +18,8 @@ let positions = []
 
 
 async function game() {
+
+    //Handle the music functionality
     const playMusic = document.querySelector('.play-music');
     const pauseMusic = document.querySelector('.pause-music');
     
@@ -39,7 +41,9 @@ async function game() {
         music.unload()
         music = null;
     })
+    //End of music
 
+    //Handle modal with instructions
     const modalBtn = document.querySelector('.modal-button');
     const modalBg = document.querySelector('.modal-bg');
     const modalClose = document.querySelector('.modal-close');
@@ -76,7 +80,9 @@ async function game() {
     modalClose.addEventListener('click', function() {
         modalBg.classList.remove('bg-active');
     })
+    //end modal with instructions
 
+    //start side panel functionality
     const panelButton = document.querySelector('.panel-button')
     const sidePanel = document.querySelector('.sidepanel')
     const panelClose = document.querySelector('.panel-close')
@@ -88,7 +94,9 @@ async function game() {
     panelButton.addEventListener('click', function() {
         sidePanel.style.width = '150px';
     })
+    //end side panel functionality
 
+    //select relevant divs and buttons
     const body = document.querySelector('.body')
     const guessLetters = document.querySelector('.guessed-letters');
     const displayLetters = document.querySelector('.shuffled-letters');
@@ -99,14 +107,17 @@ async function game() {
     const pointsDiv = document.querySelector('.points');
     const remainingWordsDiv = document.querySelector('.remaining-words')
 
+    //set up trie tree with all of the words in the dictionary
     await getDictionary()
     const root = new makeNode(null);
     for (const item of globalDictionary)
         add(item, 0, root);
 
+    //set up timer that will countdown
     const startingMinutes = 2;
     time = startingMinutes * 60;
     
+    //grab all relevant game words
     correctGuesses = [];
     passStage = false;
     guess = ''
@@ -115,17 +126,20 @@ async function game() {
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
 
-    
+    //set up the display of relevant game rendering
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
     remainingWordsDiv.innerHTML = gameWords.length;
     pointsDiv.innerHTML = points;
     correctEntries.innerHTML = '';
     
+    //set up the underscores
     placeHolders(gameWords)
     
+    //make entire body listen for the users typing
     body.addEventListener('keydown', handler)
     
+    //set up actions for all of the game buttons
     shuffleButton.addEventListener('click', function() {
         shuffle()
     })
@@ -142,6 +156,9 @@ async function game() {
     
     gameLetters = {}
 
+    //set up all of the game letter bubbles and their functionality
+    //I am trying to clear out whatever is in these containers to then set them up with new letters
+    //this is what I believe is currently breaking my next stage setup
     const lettersContainer = document.querySelector('.letters-container')
     lettersContainer.childNodes.forEach(n => lettersContainer.remove(n))
 
@@ -152,17 +169,24 @@ async function game() {
         let currentDiv = document.createElement('div');
         currentDiv.innerHTML = letters[i];
         currentDiv.className = 'game-letter'
+        //I need to change the styling of this letter bubble
         currentDiv.style.left = i * 120 + 'px';
         currentDiv.addEventListener('click', function() {
+            //move the bubble from guessContainer to the lettersContainer
             if (gameLetters[i].selected) {
+                // currentDiv.style.left = lettersContainer.children.length * 120 + 'px';
                 guessContainer.removeChild(currentDiv)
                 lettersContainer.appendChild(currentDiv)
                 gameLetters[i].selected = false;
+                //move the bubble from lettersContainer to the guessContainer
             } else {
+                // currentDiv.style.left = guessContainer.children.length * 120 + 'px';
                 lettersContainer.removeChild(currentDiv)
                 guessContainer.appendChild(currentDiv)
                 gameLetters[i].selected = true;
             }
+            resetContainer(guessContainer)
+            resetContainer(lettersContainer)
         })
         gameLetters[i] = {
             char: letters[i],
@@ -170,6 +194,14 @@ async function game() {
             selected: false
         }
         lettersContainer.appendChild(currentDiv)
+    }
+}
+
+//make all bubbles move to the left to compensate for the letter that was clicked
+function resetContainer(currentContainer) {
+    for (let i = 0; i < currentContainer.children.length; i++) {
+        let child = currentContainer.children[i];
+        child.style.left = i * 120 + 'px';
     }
 }
 
@@ -184,6 +216,8 @@ async function getDictionary() {
         return word.length === 7
     })
 }
+
+//function for counter and what happens at the end of the countdown
 function timer() {
     const countdownEl = document.querySelector('.countdown');
     let t = setInterval(updateCountdown, 1000);
@@ -241,11 +275,10 @@ function handler(e) {
         let idx = letters.indexOf(str)
         letters = letters.slice(0, idx) + letters.slice(idx + 1);
         guess += str;
-        
+
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
-                    console.log('we here at least')
                     lettersContainer.removeChild(gameLetters[key].div)
                     //set all letters in lettersContainer to the left when letter is used
                     for (let i = 0; i < lettersContainer.children.length; i++) {
