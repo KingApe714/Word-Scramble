@@ -325,17 +325,9 @@ function handler(e) {
         let char = guess[guess.length - 1]
         guess = guess.slice(0, guess.length - 1)
         if (char) letters += char;
-
-        // for (let key in gameLetters) {
-        //     //the repeated letter bug is here
-        //     if (gameLetters[key].char === guessContainer.lastElementChild.innerHTML && gameLetters[key].selected) {
-        //         gameLetters[key].selected = false;
-        //         break
-        //     }
-        // }
-
-        //looping through winningWord backword fixes the rrepeated letter bug but it 
-        //causes a new bug where that letter can no longer be used for its animation
+        
+        //loop through winningWord backword to always ensure that we grab the last 
+        //possible letter (in case of repeats) in the gameLetters object
         for (let i = winningWord.length - 1; i >= 0; i--) {
             if (gameLetters[i].char === guessContainer.lastElementChild.innerHTML && gameLetters[i].selected) {
                 gameLetters[i].selected = false;
