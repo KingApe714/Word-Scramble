@@ -179,6 +179,7 @@ async function game() {
                 let idx = guess.indexOf(str)
                 guess = guess.slice(0, idx) + guess.slice(idx + 1);
                 letters += str;
+                
                 guessContainer.removeChild(currentDiv)
                 lettersContainer.appendChild(currentDiv)
                 gameLetters[i].selected = false;
@@ -187,6 +188,7 @@ async function game() {
                 let idx = letters.indexOf(str)
                 letters = letters.slice(0, idx) + letters.slice(idx + 1);
                 guess += str;
+
                 //play the sound
                 playSound('type.wav')
                 
