@@ -54,7 +54,7 @@ async function game() {
     modalChild.textContent = "";
     modalBtn.addEventListener('click', function() {
         modalBg.classList.add('bg-active');
-        modalChild.innerHTML = 'Make as many words as you can within the alotted time to get the highest score! Find the longest word to move onto the next stage!'
+        modalChild.innerHTML = 'Make as many words as you can within the alotted time to get the highest score! Find the longest word to move onto the next stage! </br></br> shift = SHUFFLE </br> / = CLEAR </br> enter = ENTER'
         for (let i = 0; i < splitText.length; i++) {
             modalChild.innerHTML += "<span class='letter'>" + splitText[i] + "</span>";
             modalChild.innerHTML += "&nbsp;"
