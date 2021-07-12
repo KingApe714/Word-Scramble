@@ -127,8 +127,6 @@ async function game() {
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
 
-    console.log(`letters = ${letters}`)
-
     //set up the display of relevant game rendering
     displayLetters.innerHTML = letters;
     guessLetters.innerHTML = guess;
@@ -196,7 +194,7 @@ async function game() {
                 guessContainer.appendChild(currentDiv)
                 gameLetters[i].selected = true;
             }
-            
+
             resetContainer(guessContainer)
             resetContainer(lettersContainer)
         })
@@ -424,11 +422,8 @@ function shuffle() {
     } else {
         arr = letters.split('')
     }
-    console.log(document.querySelector('.letters-container'))
-    
-    let gameLetters = [...document.querySelector('.letters-container').children]
-    console.log(gameLetters)
 
+    let gameLetters = [...document.querySelector('.letters-container').children]
 
     for (let i = 0; i < arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);
@@ -448,7 +443,6 @@ function shuffle() {
         }
     })
     letters =  arr.join('');
-    // console.log(`letters = ${letters}`)
     displayLetters.innerHTML = letters;
 }
 
