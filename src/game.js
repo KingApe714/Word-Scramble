@@ -32,7 +32,8 @@ async function game() {
             music = null;
         }
         music = new Howl({
-            src: ['../sounds/game-song.wav']
+            src: ['../sounds/game-song.wav'],
+            loop: true
         });
         music.play();
     })
