@@ -369,7 +369,7 @@ function entries() {
         time += multiplier;
         points += multiplier * 100;
         
-        countExpression.innerHTML = multiplier;
+        countExpression.innerHTML = `+ ${multiplier} SECONDS!`;
         countExpression.classList.add('count-shrink')
 
         pointExpression.innerHTML = multiplier * 100;
@@ -380,7 +380,7 @@ function entries() {
 
             countExpression.classList.remove('count-shrink')
             countExpression.innerHTML = "";
-        }, 300)
+        }, 500)
 
         pointsDiv.innerHTML = points;
     } else if (gameWords.includes(guess) && correctGuesses.includes(guess)) {
