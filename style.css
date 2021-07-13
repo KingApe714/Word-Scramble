@@ -186,6 +186,26 @@ button:hover {
     transition: top 300ms linear, left 300ms linear;
 }
 
+.points-div {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.points {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.points, .point-expression {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
 .point-expression {
     font-size: 50px;
     transition: all 500ms;
@@ -193,4 +213,5 @@ button:hover {
 
 .point-shrink {
     font-size: 15px;
+    color: transparent;
 }
