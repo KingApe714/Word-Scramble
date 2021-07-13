@@ -392,10 +392,12 @@ function entries() {
                     setTimeout(function() {
                         innerNode.firstChild.classList.remove('text-blink')
                     }, 1700)
-                    playSound(`repeat-word.wav`)
+                    playSound(`wrong-guess.wav`)
                 }
             })
         })
+    } else {
+        playSound(`repeat-word.wav`)
     }
 }
 
