@@ -341,6 +341,10 @@ function guessEntry() {
 function entries() {
     const correctEntries = document.querySelector('.correct-entries');
     const pointsDiv = document.querySelector('.points');
+
+    const pointExpression = document.querySelector('.point-expression')
+
+    pointExpression.classList.remove('point-shrink')
     
     if (gameWords.includes(guess) && !correctGuesses.includes(guess)) {
         correctGuesses.push(guess);
@@ -365,6 +369,9 @@ function entries() {
         
         time += multiplier;
         points += multiplier * 100;
+        //lets make an animation that expresses that extra points hitting
+        pointExpression.innerHTML = multiplier * 100;
+        pointExpression.classList.add('point-shrink')
         pointsDiv.innerHTML = points;
     }
 }

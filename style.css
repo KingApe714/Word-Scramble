@@ -185,3 +185,12 @@ button:hover {
     -webkit-transition: top 300ms linear, left 300ms linear;
     transition: top 300ms linear, left 300ms linear;
 }
+
+.point-expression {
+    font-size: 50px;
+    transition: all 500ms;
+}
+
+.point-shrink {
+    font-size: 15px;
+}
