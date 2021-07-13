@@ -152,6 +152,10 @@ button:hover {
     visibility: hidden;
 }
 
+.text-blink {
+    color: red;
+}
+
 .game-board {
     padding-left: 30px;
 }

@@ -382,6 +382,17 @@ function entries() {
         }, 300)
 
         pointsDiv.innerHTML = points;
+    } else if (gameWords.includes(guess) && correctGuesses.includes(guess)) {
+        //KEEP TESTING FOR BLINKING TEXT
+        correctEntries.childNodes.forEach(node => {
+            node.childNodes.forEach(innerNode => {
+                if (innerNode.firstChild.innerHTML === guess) {
+                    innerNode.firstChild.classList.add('text-blink')
+                    console.log('pass second test')
+                    // playSound(`sound${guess.length}.wav`)
+                }
+            })
+        })
     }
 }
 
