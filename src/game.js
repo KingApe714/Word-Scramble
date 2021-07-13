@@ -32,7 +32,7 @@ async function game() {
             music = null;
         }
         music = new Howl({
-            src: ['../sounds/bensound-ukulele.mp3']
+            src: ['../sounds/game-song.wav']
         });
         music.play();
     })
@@ -388,8 +388,10 @@ function entries() {
             node.childNodes.forEach(innerNode => {
                 if (innerNode.firstChild.innerHTML === guess) {
                     innerNode.firstChild.classList.add('text-blink')
-                    console.log('pass second test')
-                    // playSound(`sound${guess.length}.wav`)
+                    setTimeout(function() {
+                        innerNode.firstChild.classList.remove('text-blink')
+                    }, 1700)
+                    playSound(`repeat-word.wav`)
                 }
             })
         })

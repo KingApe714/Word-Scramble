@@ -152,8 +152,15 @@ button:hover {
     visibility: hidden;
 }
 
+@keyframes blink {
+    50% {
+        opacity: 0;
+        color: var(--game-red);
+    }
+}
+
 .text-blink {
-    color: red;
+    animation: blink 0.6s linear infinite;
 }
 
 .game-board {
