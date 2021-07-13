@@ -67,7 +67,7 @@ async function game() {
             if (span) span.classList.add('fade');
             char++;
             if (char === splitText.length) {
-                complete();
+                complete()
                 return;
             }
         }
@@ -99,14 +99,11 @@ async function game() {
 
     //select relevant divs and buttons
     const body = document.querySelector('.body')
-    const guessLetters = document.querySelector('.guessed-letters');
-    const displayLetters = document.querySelector('.shuffled-letters');
     const correctEntries = document.querySelector('.correct-entries');
     const enterButton = document.querySelector('.enter-button');
     const shuffleButton = document.querySelector('.shuffle-button');
     const clearButton = document.querySelector('.clear-button');
     const pointsDiv = document.querySelector('.points');
-    const remainingWordsDiv = document.querySelector('.remaining-words')
 
     //set up trie tree with all of the words in the dictionary
     await getDictionary()
@@ -127,10 +124,6 @@ async function game() {
     gameWords = fetchGameWords(root, winningWord)
     passWords = gameWords.filter(word => word.length === 7)
 
-    //set up the display of relevant game rendering
-    displayLetters.innerHTML = letters;
-    guessLetters.innerHTML = guess;
-    remainingWordsDiv.innerHTML = gameWords.length;
     pointsDiv.innerHTML = points;
     correctEntries.innerHTML = '';
     
@@ -288,9 +281,6 @@ function timer() {
 
 //in this function I have to focus on refactoring some of the logic
 function handler(e) {
-    const guessLetters = document.querySelector('.guessed-letters');
-    const displayLetters = document.querySelector('.shuffled-letters');
-
     const lettersContainer = document.querySelector('.letters-container')
     const guessContainer = document.querySelector('.guess-container')
     const str = e.key.toUpperCase();
@@ -304,10 +294,8 @@ function handler(e) {
         for (let key in gameLetters) {
             if (gameLetters[key].char === str) {
                 if (!gameLetters[key].selected) {
-                    //the repeated letter bug is happening here
-                    console.log(gameLetters[key].div)
                     lettersContainer.removeChild(gameLetters[key].div)
-                    console.log(lettersContainer)
+
                     //set all letters in lettersContainer to the left when letter is used
                     for (let i = 0; i < lettersContainer.children.length; i++) {
                         lettersContainer.children[i].style.left = i * 120 + 'px';
@@ -344,9 +332,6 @@ function handler(e) {
     } else if (str === "SHIFT") {
         shuffle()
     }
-    
-    displayLetters.innerHTML = letters;
-    guessLetters.innerHTML = guess;
 }
 
 function guessEntry() {
@@ -354,7 +339,6 @@ function guessEntry() {
 }
 
 function entries() {
-    const remainingWordsDiv = document.querySelector('.remaining-words')
     const correctEntries = document.querySelector('.correct-entries');
     const pointsDiv = document.querySelector('.points');
     
@@ -368,8 +352,6 @@ function entries() {
                 }
             })
         })
-        
-        remainingWordsDiv.innerHTML = gameWords.length - correctGuesses.length;
         
         let multiplier = 0
         if (guess.length === 3) multiplier = 3;
@@ -396,8 +378,6 @@ function playSound(file) {
 
 //I need for this to update my gameLetters object
 function clear() {
-    const displayLetters = document.querySelector('.shuffled-letters')
-    const guessLetters = document.querySelector('.guessed-letters')
     guess = "";
     const guessContainer = document.querySelector('.guess-container')
     const lettersContainer = document.querySelector('.letters-container')
@@ -415,12 +395,9 @@ function clear() {
     for (let key in gameLetters) {
         gameLetters[key].selected = false;
     }
-    displayLetters.innerHTML = letters;
-    guessLetters.innerHTML = guess;
 }
 
 function shuffle() {
-    const displayLetters = document.querySelector('.shuffled-letters')
     let arr;
     if (firstShuffle) {
         arr = winningWord.split('')
@@ -449,7 +426,6 @@ function shuffle() {
         }
     })
     letters =  arr.join('');
-    displayLetters.innerHTML = letters;
 }
 
 export default game
