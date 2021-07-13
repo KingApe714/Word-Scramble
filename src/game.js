@@ -396,7 +396,7 @@ function entries() {
                 }
             })
         })
-    } else {
+    } else if (!gameWords.includes(guess)){
         playSound(`repeat-word.wav`)
     }
 }
