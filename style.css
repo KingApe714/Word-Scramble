@@ -131,13 +131,14 @@ button:hover {
 }
 
 .correct-entries {
+    height: 480px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
 .words-container {
-    height: 480px;
+    /* height: 480px; */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -145,6 +146,7 @@ button:hover {
 
 .outer-placeholder {
     border-bottom: 1px solid black;
+    /* width: fit-content; */
     margin: 2px
 }
 
