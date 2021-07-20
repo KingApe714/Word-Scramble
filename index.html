@@ -10,42 +10,45 @@
         <script src="./dist/main.js"></script>
     </head>
     <body class="body">
-        <div class="side-container">
-            <button class="panel-button">MENU</button>
-            <div class="sidepanel">
-                <span class="panel-close">X</span>
-                <button class="modal-button">INSTRUCTIONS</button>
-                <div class="modal-bg">
-                    <div class="modal">
-                        <span class="modal-close">X</span>
-                        <h2 class="modal-child"></h2>
+        <h1 class="title">Word Scramble!!</h1>
+        <div class="outer-game-container">
+            <div class="side-container">
+                <button class="panel-button">MENU</button>
+                <div class="sidepanel">
+                    <span class="panel-close">X</span>
+                    <button class="modal-button">INSTRUCTIONS</button>
+                    <div class="modal-bg">
+                        <div class="modal">
+                            <span class="modal-close">X</span>
+                            <h2 class="modal-child"></h2>
+                        </div>
+                    </div>
+                    <button class="enter-button">ENTER</button>
+                    <button class="shuffle-button">SHUFFLE</button>
+                    <button class="clear-button">CLEAR</button>
+                    <button class="play-music">PLAY MUSIC</button>
+                    <button class="pause-music">PAUSE MUSIC</button>
+                </div>
+                <div class="side-info">
+                    <div class="time-div">
+                        <div class="countdown">2:00</div>
+                        <div class="count-expression"></div>
+                    </div>
+                    <div class="points-div">
+                        <div class="points">0</div>
+                        <div class="point-expression"></div>
                     </div>
                 </div>
-                <button class="enter-button">ENTER</button>
-                <button class="shuffle-button">SHUFFLE</button>
-                <button class="clear-button">CLEAR</button>
-                <button class="play-music">PLAY MUSIC</button>
-                <button class="pause-music">PAUSE MUSIC</button>
             </div>
-            <div class="side-info">
-                <div class="time-div">
-                    <div class="countdown">2:00</div>
-                    <div class="count-expression"></div>
-                </div>
-                <div class="points-div">
-                    <div class="points">0</div>
-                    <div class="point-expression"></div>
-                </div>
+            <div class="game-board">
+                <div class='inner-game-container'>
+                <div class='guess-container'></div>
+                <div class='letters-container'></div>
             </div>
-        </div>
-        <div class="game-board">
-            <div class='inner-game-container'>
-            <div class='guess-container'></div>
-            <div class='letters-container'></div>
-        </div>
-            <!-- <div class='words-container'> -->
-                <div class="correct-entries"></div>
-            <!-- </div> -->
+                <!-- <div class='words-container'> -->
+                    <div class="correct-entries"></div>
+                <!-- </div> -->
+            </div>
         </div>
     </body>
 </html>
