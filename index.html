@@ -1,60 +1,48 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <meta property="og:title" content="WordScramble" />
-        <meta property="og:image" content="project_img.png" />
-        <meta property="og:description" content="7 letters are given to you and you must find one of the seven letter words to make it to the next stage" />
-        <meta property="og:url" content="https://kingape714.github.io/Word-Scramble/" />
-
-        <title>Word-Scramble</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="./dist/main.js"></script>
-    </head>
-    <body class="body">
-        <h1 class="title">Word Scramble!!</h1>
-        <div class="outer-game-container">
-            <div class="side-container">
-                <button class="panel-button">MENU</button>
-                <div class="sidepanel">
-                    <span class="panel-close">X</span>
-                    <button class="modal-button">INSTRUCTIONS</button>
-                    <div class="modal-bg">
-                        <div class="modal">
-                            <span class="modal-close">X</span>
-                            <h2 class="modal-child"></h2>
-                        </div>
-                    </div>
-                    <button class="enter-button">ENTER</button>
-                    <button class="shuffle-button">SHUFFLE</button>
-                    <button class="clear-button">CLEAR</button>
-                    <button class="play-music">PLAY MUSIC</button>
-                    <button class="pause-music">PAUSE MUSIC</button>
-                </div>
-                <div class="side-info">
-                    <div class="time-div">
-                        <div class="countdown">2:00</div>
-                        <div class="count-expression"></div>
-                    </div>
-                    <div class="points-div">
-                        <div class="points">0</div>
-                        <div class="point-expression"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="game-board">
-                <div class='inner-game-container'>
-                <div class='guess-container'></div>
-                <div class='letters-container'></div>
-            </div>
-                <!-- <div class='words-container'> -->
-                    <div class="correct-entries"></div>
-                <!-- </div> -->
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Scramble</title>
+    <link rel="stylesheet" href="styles/game.css" />
+    <link rel="stylesheet" href="styles/game-tile.css" />
+    <link rel="stylesheet" href="styles/clue-container.css" />
+    <link rel="stylesheet" href="styles/control-panel.css" />
+    <link rel="stylesheet" href="styles/screen-sizes.css" />
+  </head>
+  <body>
+    <div class="outer-clue-container">
+      <div class="clue-container"></div>
+    </div>
+    <div class="game-container">
+      <div class="outer-used-tile-container">
+        <div class="used-tile-container"></div>
+      </div>
+      <div class="outer-unused-tile-container">
+        <div class="unused-tile-container">
+          <div class="game-tile-container piece-00" id="piece-00"></div>
+          <div class="game-tile-container piece-01" id="piece-01"></div>
+          <div class="game-tile-container piece-02" id="piece-02"></div>
+          <div class="game-tile-container piece-03" id="piece-03"></div>
+          <div class="game-tile-container piece-04" id="piece-04"></div>
+          <div class="game-tile-container piece-05" id="piece-05"></div>
+          <div class="game-tile-container piece-06" id="piece-06"></div>
         </div>
-    </body>
+      </div>
+    </div>
+    <div class="control-panel">
+      <div class="points-timer-container">
+        <div class="points-counter"></div>
+        <div class="timer"></div>
+      </div>
+      <div class="definitions-container"></div>
+      <div class="button-container">
+        <div class="game-button clear">CLEAR</div>
+        <div class="game-button enter">ENTER</div>
+        <div class="game-button delete">DELETE</div>
+        <div class="game-button shuffle">SHUFFLE</div>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="src/main.js"></script>
 </html>

@@ -1,0 +1,51 @@
+.outer-clue-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 99%;
+  height: 35%;
+  border: 1px solid salmon;
+}
+
+.clue-container {
+  height: 97%;
+  width: -webkit-fill-available;
+  margin: 4px;
+  display: flex;
+  border: 1px solid blue;
+  flex-wrap: wrap;
+  overflow: scroll;
+  align-content: flex-start;
+}
+
+.clue-word-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid darkcyan;
+  width: fit-content;
+  height: fit-content;
+  margin: 3px;
+  border-radius: 6px;
+}
+
+.clue-char-container {
+  background-color: tan;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Standard syntax */
+
+  box-shadow: 0.1vh 0.1vh 0.3vh white inset, -0.01vh 0.01vh 0.5vh;
+  font-family: "Lato", sans-serif;
+  text-shadow: 0px 0.25px white;
+  filter: brightness(130%);
+  height: 1.8vh;
+  width: 1.8vh;
+  border-radius: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vh;
+  margin: 0.3vh;
+}

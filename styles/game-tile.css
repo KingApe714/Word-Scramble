@@ -1,0 +1,48 @@
+.game-tile-container {
+  box-shadow: 0.1vh 0.1vh 1.3vh white inset, -0.3vh 0.3vh 1.3vh;
+  font-family: "Lato", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25%;
+  font-size: larger;
+  text-shadow: 0px 0.5px white;
+  /* height: 13vh;
+  width: 13vh; */
+  width: 10%;
+  aspect-ratio: 1 / 1;
+  /* transition: transform 0.5s; */
+  -webkit-transition: left 300ms linear;
+  transition: left 300ms linear;
+
+  position: absolute;
+}
+
+/* I can have each of the divs' left orientation predetermined */
+.piece-00 {
+  left: 0%;
+}
+
+.piece-01 {
+  left: 15%;
+}
+
+.piece-02 {
+  left: 30%;
+}
+
+.piece-03 {
+  left: 45%;
+}
+
+.piece-04 {
+  left: 60%;
+}
+
+.piece-05 {
+  left: 75%;
+}
+
+.piece-06 {
+  left: 90%;
+}

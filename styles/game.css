@@ -1,0 +1,42 @@
+body {
+  border: 1px solid red;
+  height: 98vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.game-container {
+  height: 35%;
+  border: 1px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 99%;
+}
+
+.outer-used-tile-container,
+.outer-unused-tile-container {
+  border: 1px solid darkorange;
+  height: 40%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.used-tile-container,
+.unused-tile-container {
+  border: 1px solid black;
+  height: 100%;
+  width: 95%;
+  display: flex;
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  align-items: center;
+  /* justify-content: space-around; */
+
+  position: relative;
+}
