@@ -150,6 +150,8 @@ export const gamePlay = (gameWords, gameChars, winningWords) => {
       handleClear(e);
     } else if (key === "BACKSPACE") {
       handleDelete(e);
+    } else if (key === " ") {
+      handleShuffle(e);
     }
   });
 };
