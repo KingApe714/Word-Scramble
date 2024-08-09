@@ -4,10 +4,9 @@ export const gamePlay = (gameWords, gameChars, winningWords) => {
   const gameTiles = document.querySelectorAll(".game-tile-container");
   const positions = ["0%", "15%", "30%", "45%", "60%", "75%", "90%"];
 
-  const handleGameTile = (e) => {
+  const handleGameTile = (e, currentNode) => {
     e.preventDefault();
-    console.log("Game tile event triggered");
-    const node = e.target;
+    const node = currentNode || e.target;
     const parentNode = node.parentNode;
 
     const moveNodes = (nextContainer) => {
@@ -139,13 +138,12 @@ export const gamePlay = (gameWords, gameChars, winningWords) => {
 
   document.addEventListener("keydown", (e) => {
     const key = e.key.toUpperCase();
-    console.log(key);
-    // I need to know if a character is available from the characters that I am typing
-    const availableChars = unusedTileContainer.children.map(
-      (node) => node.innerHTML
+    const node = Array.from(unusedTileContainer.children).find(
+      (node) => node.innerHTML === key
     );
 
-    if (availableChars.includes(key)) {
+    if (node) {
+      handleGameTile(e, node);
     } else if (key === "ENTER") {
       handleEnter(e);
     } else if (key === "SHIFT") {
